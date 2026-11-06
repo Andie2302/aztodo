@@ -20,7 +20,7 @@
   Git-Abhängigkeit mit festem `rev` ein (kein Branch-Name), damit Physik-Ergebnisse
   reproduzierbar bleiben. Ein Update des `rev` ist eine bewusste Änderung mit
   Verweis auf den geprüften azmath-Commit in STATUS.md. Nach der ersten
-  Veröffentlichung (AZM-010) wird auf eine Versionsabhängigkeit umgestellt.
+  separat beauftragten Veröffentlichung (AZM-011) wird auf eine Versionsabhängigkeit umgestellt.
 - D-007: Jede azphysics-CI führt `cargo test` aus, sobald es Code gibt;
   Modelle werden mit analytischen Referenzen getestet (siehe AZP-020).
 
@@ -31,7 +31,7 @@
   Bibliothek; Zustandslayout und SIMD-/Parallelisierungsbedarf erst danach.
 - AZP-060: Bestehendes IAPWS als separates Referenz-/Anwendungscrate erhalten
   oder künftig als optionales Materialmodul anbinden.
-- AZM-010: Erste Veröffentlichung, SemVer-Strategie und Prüfmatrix für eine
+- AZM-011: Erste Veröffentlichung, SemVer-Strategie und Prüfmatrix für eine
   freigegebene Version. Kein automatisches Veröffentlichen auf crates.io.
 
 ## So bleibt der Plan übersichtlich

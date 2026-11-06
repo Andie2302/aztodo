@@ -10,11 +10,14 @@ verbindlich benannt; die hier gezeigten Horizonte legen die Reihenfolge fest.
 | 1 | AZM-001 Verteilungen und Quantile | Bestehende Spezialfunktionen | Direkte obere Tails, Referenzen und Fehlerpfade; abgeschlossen in diesem Arbeitspaket |
 | 2 | PLAN-001 Gemeinsame Planung | Repository-Grenzen geklärt | Dieses Repository und verlinkte lokale Roadmaps |
 | 3 | AZP-001 Physik-Gerüst | PLAN-001 | Kleine kompilierbare Struktur mit no_std/alloc-Grenzen und CI; Modelle bleiben offen |
-| 4 | AZM-010 Basisprüfung und Release-Vorbereitung | AZM-001, vorhandene Krylov-/Sparse-Tests | Reproduzierbare Prüfliste, Paket-Dry-Run, dokumentierter Gültigkeitsbereich |
-| 5 | AZM-020 MINRES | AZM-010, LinearOperator, Vorkonditionierer | Symmetrisch-indefinite Systeme zuverlässig behandeln |
+| 4 | AZM-010 Basisprüfung und Release-Vorbereitung | AZM-001, vorhandene Krylov-/Sparse-Tests | Abgeschlossen: Paket-Dry-Run, entpackte Tests, MSRV und dokumentierte Prüfmatrix |
+| 5 | AZM-020 MINRES | AZM-010, LinearOperator, Vorkonditionierer | Abgeschlossen: MINRES/PMINRES, 15 f32/f64-/CSR-Tests und originale Residuenprüfung |
 
 Chandrupatla (AZM-021) ist eine nachrangige Ergänzung: Brent ist bereits da.
 Die Entscheidung hängt von messbarem Nutzen an problematischen Nullstellen ab.
+
+**Als Nächstes aktiv:** AZM-030. Eine tatsächliche Veröffentlichung ist als
+AZM-011 separat zu entscheiden; der erfolgreiche Dry-Run veröffentlicht nichts.
 
 ## Mittelfristig: Werkzeuge für erste physikalische Modelle
 

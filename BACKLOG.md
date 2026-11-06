@@ -11,8 +11,9 @@ Status: **Erledigt** = implementiert und mit verlinkten Nachweisen geprüft;
 | AZM-001 | azmath | Erledigt | Bestehende special-/dist-Module | Direkte SF/ISF, hochpräzise f32/f64-Referenzen, Randfälle und kleine p-Werte in Hypothesentests; siehe Qualitätsbericht |
 | PLAN-001 | aztodo | Erledigt | Repositories angelegt | Zentrale Horizonte, feste IDs, Zuständigkeiten, Abhängigkeiten, Entscheidungsregeln und archivierte alte Roadmap |
 | AZP-001 | azphysics | Erledigt | PLAN-001 | Kompilierbares Gerüst 0.0.1, no_std/alloc-Build, CI-Konfiguration und Architektur; kein Physikverfahren als implementiert ausgegeben |
-| AZM-010 | azmath | Offen | AZM-001, vorhandene Krylov-/Sparse-Absicherung | Backend-/Embedded-Prüfungen und Fehlerpfade dokumentiert; Paket-Metadaten, Changelog, `cargo publish --dry-run`; noch keine Veröffentlichung |
-| AZM-020 | azmath | Offen | AZM-010 | MINRES: Residuen für symmetrisch-indefinite Systeme, f32/f64, Breakdown/Nullstart/NaN, zulässige Vorkonditionierer, Referenzvergleich |
+| AZM-010 | azmath | Erledigt | AZM-001, vorhandene Krylov-/Sparse-Absicherung | Backend-/Embedded-Prüfungen und Fehlerpfade dokumentiert; Paket-Metadaten, Changelog, `cargo publish --dry-run` und Tests des entpackten Crates erfolgreich; noch keine Veröffentlichung (AZM-011) |
+| AZM-011 | azmath | Entscheidung | AZM-010, konkrete Version vereinbart | Veröffentlichung separat beauftragen; Versionsstand/Tag/CI prüfen, anschließend tatsächliche crates.io-Veröffentlichung |
+| AZM-020 | azmath | Erledigt | AZM-010 | MINRES: Residuen für symmetrisch-indefinite Systeme, f32/f64, Breakdown/Nullstart/NaN, zulässige Vorkonditionierer, Referenzvergleich; Nachweise im Release-/MINRES-Bericht |
 | AZM-021 | azmath | Entscheidung | Brent vorhanden | Chandrupatla nur nach begründetem Vergleich; geklammerte Nullstellen, Randpunkte, unzulässige Intervalle und Stagnation testen |
 
 ## Mittelfristig
