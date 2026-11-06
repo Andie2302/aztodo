@@ -1,7 +1,7 @@
 # Git-Arbeitsweise für azmath, azphysics und aztodo
 
 Kurzes Nachschlagewerk, damit man zwischen den drei Repositories nicht den Überblick verliert.
-Stand: 2026-11-06.
+Stand: 2026-11-07 (Grundregel „direkt auf master“ ergänzt).
 
 ## Festlegungen
 
@@ -16,12 +16,29 @@ Stand: 2026-11-06.
 
 ## Ablauf einer Änderung
 
+**Grundregel: direkt auf `master` arbeiten**, außer ein eigener Branch ist sinnvoller.
+
+| Art der Änderung | Vorgehen |
+|---|---|
+| Dokumentation, Links, Notizen, Planungsdateien (besonders in aztodo), kleine risikoarme Korrekturen | Direkt auf `master` committen und pushen |
+| Änderungen an `src/`, neue Verfahren, CI-Dateien, größere oder riskante Umbauten | Eigener Branch und Pull Request, damit die CI vor dem Merge prüft und `master` grün bleibt |
+| Arbeit, die mehrere Schritte braucht oder bewusst erst später fertig wird | Eigener Branch |
+
+Grund: Eine KI-Sitzung führt Tests nicht lokal aus (Wunsch des Projektinhabers; Tests laufen bei ihm).
+Die CI auf GitHub ist dann die erste Prüfung. Deshalb gehört Code vor dem Merge in einen Pull Request.
+azphysics bindet azmath außerdem mit festem `rev` ein (D-006), ein roter `master` in azmath stört also
+nur, wenn das `rev` darauf zeigt.
+
+Ablauf mit Branch:
+
 1. Neuen Branch von `master` anlegen (zum Beispiel `claude/<thema>` oder `feature/<thema>`).
 2. Committen und pushen.
 3. Pull Request nach `master` anlegen; die CI läuft automatisch.
 4. Wenn die CI grün ist: mergen (Merge-Commit).
-5. **Branch danach löschen.** Gemergte Branches werden nicht mehr gebraucht; der Merge-Commit
-   bleibt im Hauptbranch erhalten, und GitHub bietet kurz „Restore“ an.
+5. **Branch danach löschen.** Der Merge-Commit bleibt im Hauptbranch erhalten, und GitHub bietet kurz „Restore“ an.
+
+Ablauf direkt auf `master`: `git pull`, ändern, committen, `git push`. Danach in GitHub unter *Actions*
+prüfen, dass die CI grün ist (aztodo hat keine CI).
 
 ## Was „ahead“ und „behind“ bedeutet
 

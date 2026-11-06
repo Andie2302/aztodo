@@ -24,9 +24,11 @@
   separat beauftragten Veröffentlichung (AZM-011) wird auf eine Versionsabhängigkeit umgestellt.
 - D-007: Jede azphysics-CI führt `cargo test` aus, sobald es Code gibt;
   Modelle werden mit analytischen Referenzen getestet (siehe AZP-020).
-- D-008: Der Standardbranch heißt in allen drei Repositories `master`. Änderungen laufen
-  über Branch und Pull Request; gemergte Branches werden gelöscht
-  (siehe [Git-Arbeitsweise](docs/GIT-ARBEITSWEISE.md)). Alle drei Repositories sind öffentlich.
+- D-008: Der Standardbranch heißt in allen drei Repositories `master`. Es wird direkt auf
+  `master` gearbeitet; ein eigener Branch mit Pull Request wird für Code-, CI- und riskante
+  Änderungen oder bei mehrstufiger Arbeit genutzt, damit die CI vor dem Merge prüft. Gemergte
+  Branches werden gelöscht (siehe [Git-Arbeitsweise](docs/GIT-ARBEITSWEISE.md)).
+  Alle drei Repositories sind öffentlich.
 
 ## Noch offen
 

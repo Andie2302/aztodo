@@ -22,7 +22,7 @@ Eine crates.io-Veröffentlichung (AZM-011) ist gesondert zu entscheiden.
 - [Aufgaben mit Abnahmekriterien](BACKLOG.md): Feste IDs, Zuständigkeit und Voraussetzungen.
 - [Architektur und Abhängigkeiten](ARCHITECTURE.md): Grenzen zwischen Mathematik und Physik.
 - [Entscheidungen und Pflege](DECISIONS.md): Was feststeht und was noch offen ist.
-- [Git-Arbeitsweise](docs/GIT-ARBEITSWEISE.md): Branches, Pull Requests, Standardbranch `master`, Branch-Schutz.
+- [Git-Arbeitsweise](docs/GIT-ARBEITSWEISE.md): Direkt auf `master` arbeiten, wann ein Branch sinnvoll ist, Branch-Schutz.
 - [Alte azmath-Roadmap](docs/archive/azmath-roadmap-2026-11-06.md): Vollständiger Ideenspeicher vor der Neuordnung.
 
 Die Zeiträume sind **Prioritätshorizonte**, keine zugesagten Termine. Eine
