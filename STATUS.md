@@ -1,6 +1,6 @@
 # Stand und Nachweise
 
-Stand: 2026-11-06. Grundlage ist der tatsächliche Quelltext, ergänzt um lokale
+Stand: 2026-11-07. Grundlage ist der tatsächliche Quelltext, ergänzt um lokale
 Prüfungen. Eine konfigurierte CI ist kein Nachweis für einen bereits erfolgreich
 durchgelaufenen GitHub-Job.
 
@@ -47,15 +47,26 @@ diese bleibt AZM-011.
 
 ## azphysics
 
-Version **0.0.1**, Gerüst ohne Physikverfahren. Lokal geprüft: Clippy mit allen
-Features, Build ohne Default-Features, Embedded-Build ohne std mit alloc,
-Formatierung und Rustdoc mit Warnungen als Fehlern. Die CI führt `cargo test` aus
-(derzeit ohne Tests). MSRV 1.85 ist in CI
-konfiguriert, wurde in dieser Arbeitsumgebung nicht separat ausgeführt.
+Version **0.0.1**, Gerüst mit direkter Git-Abhängigkeit, noch ohne Physikmodelle.
+AZP-002 bindet azmath an `c839bc7f2d83c6f4a2a9baef20abda2ea03fc2a9`.
+Dieser Commit ergänzt gegenüber dem oben geprüften Rechenstand nur den
+experimentellen README-Hinweis; alle 18 azmath-CI-Prüfungen waren erfolgreich.
 
-Die azmath-Cargo-Abhängigkeit ist für das erste Modell geplant (siehe D-006). Solange sie
-nicht eingebunden ist, gibt es auch keine behauptete Integration von
-azmath-Backends in azphysics.
+Backend-Features std/libm/micromath und alloc werden ohne implizite azmath-
+Default-Features weitergeleitet. `azphysics::Real` ist das Trait dieser
+Abhängigkeit. Cargo.toml und Cargo.lock halten die Revision fest; neue Commits
+auf master ändern sie nicht automatisch. Ein bewusstes rev-Update folgt D-006.
+
+Lokal geprüft: zwei Integrationstests je Backend, mit alloc drei; std,
+libm und micromath jeweils mit/ohne alloc sowie alle Features. Ohne Backend
+werden die Tests nur kompiliert. Embedded-Builds mit libm und libm+alloc,
+Rust 1.85.0 mit std und libm+alloc, Clippy, Formatierung und Rustdoc bestanden.
+Micromath nutzt beim Näherungstest ein lockeres Smoke-Budget; daraus folgt
+keine Freigabe für genaue Physikberechnungen.
+
+Die CI führt diese Backend-Matrix und cargo test aus (D-007). Die Tests
+verifizieren Trait-/Löser-Nutzung und alloc-Weiterleitung, keine Physikmodelle.
+Ein Git-Abhängigkeitsupdate ist keine crates.io-Veröffentlichung (AZM-011).
 
 ## Planung
 

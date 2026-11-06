@@ -1,6 +1,6 @@
 # Gemeinsame Roadmap
 
-Stand: 2026-11-06. Status und Abnahmekriterien sind in [BACKLOG.md](BACKLOG.md)
+Stand: 2026-11-07. Status und Abnahmekriterien sind in [BACKLOG.md](BACKLOG.md)
 verbindlich benannt; die hier gezeigten Horizonte legen die Reihenfolge fest.
 
 ## Kurzfristig: Grundlage verlässlich und übersichtlich machen
@@ -12,6 +12,9 @@ verbindlich benannt; die hier gezeigten Horizonte legen die Reihenfolge fest.
 | 3 | AZP-001 Physik-Gerüst | PLAN-001 | Kleine kompilierbare Struktur mit no_std/alloc-Grenzen und CI; Modelle bleiben offen |
 | 4 | AZM-010 Basisprüfung und Release-Vorbereitung | AZM-001, vorhandene Krylov-/Sparse-Tests | Abgeschlossen: Paket-Dry-Run, entpackte Tests, MSRV und dokumentierte Prüfmatrix |
 | 5 | AZM-020 MINRES | AZM-010, LinearOperator, Vorkonditionierer | Abgeschlossen: MINRES/PMINRES, 15 f32/f64-/CSR-Tests und originale Residuenprüfung |
+
+AZP-002 ist ebenfalls abgeschlossen: azphysics verwendet azmath direkt per
+Git mit festem `rev`, Feature-Weiterleitung und eigenem Integrationstest.
 
 Chandrupatla (AZM-021) ist eine nachrangige Ergänzung: Brent ist bereits da.
 Die Entscheidung hängt von messbarem Nutzen an problematischen Nullstellen ab.

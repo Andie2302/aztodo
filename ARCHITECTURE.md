@@ -18,13 +18,15 @@ azmath verwendet und dort verbessert, wenn sie allgemein formulierbar sind.
 flowchart TD
     Plan[aztodo: Planung] -. koordiniert .-> Math[azmath: Mathematik]
     Plan -. koordiniert .-> Physics[azphysics: Modelle und Simulation]
-    Physics -->|geplante Laufzeitabhängigkeit| Math
+    Physics -->|Git-Abhängigkeit mit festem rev| Math
 ```
 
-azmath hängt nicht von azphysics ab. Das Physik-Gerüst hat zunächst keine
-azmath-Cargo-Abhängigkeit; sie wird für das erste reale Modell mit geprüftem
-Commit bzw. später einer veröffentlichten Version eingeführt. Damit behauptet
-leerer Gerüstcode keine bereits funktionsfähige Integration.
+azmath hängt nicht von azphysics ab. azphysics bindet azmath direkt per Git und
+festem `rev` ein: `c839bc7f2d83c6f4a2a9baef20abda2ea03fc2a9` (AZP-002).
+`default-features = false` verhindert ein ungewolltes std-Backend; std, libm,
+micromath und alloc werden durch die entsprechenden azphysics-Features
+weitergereicht. Cargo.lock wird mit versioniert. Physikalische Modelle sind
+weiterhin geplant; die Anbindung prüft zunächst mathematische APIs und Builds.
 
 ## Zuordnung der gewünschten Verfahren
 

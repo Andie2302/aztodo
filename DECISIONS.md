@@ -6,8 +6,9 @@
   azphysics; gemeinsame Zukunftsplanung in aztodo. Abhängigkeit nur von Physik
   zu Mathematik, nicht umgekehrt.
 - D-002: Backend-Prinzip, `no_std` und optionales `alloc` aus azmath übernehmen.
-  Physik-Backends werden mit der tatsächlichen azmath-Abhängigkeit eingeführt;
-  ein leeres Feature darf keine geprüfte numerische Backend-Unterstützung vortäuschen.
+  Physik-Backends werden seit AZP-002 mit der tatsächlichen azmath-Abhängigkeit
+  weitergeleitet und geprüft; ein leeres Feature darf keine geprüfte numerische
+  Backend-Unterstützung vortäuschen.
 - D-003: Während 0.0.1 dürfen begründete Breaking Changes vorgenommen werden.
   Sie werden im jeweiligen Changelog und in der zentralen Planung beschrieben.
 - D-004: Lokale ROADMAP-Dateien sind kurze Wegweiser. Zukünftige Prioritäten
