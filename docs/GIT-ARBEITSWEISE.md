@@ -7,8 +7,9 @@ Stand: 2026-11-06.
 
 - **Standardbranch heißt in allen drei Repositories `master`** (azmath, azphysics, aztodo).
   Links auf Dateien verwenden deshalb `.../blob/master/...`.
-- **Sichtbarkeit:** azmath ist öffentlich (seit 2026-11-06), damit azphysics es per Git
-  einbinden kann. azphysics und aztodo siehe jeweilige GitHub-Einstellungen.
+- **Sichtbarkeit:** azmath, azphysics und aztodo sind öffentlich (laut GitHub, Stand 2026-11-06).
+  azmath wurde dafür am 2026-11-06 umgestellt, damit azphysics es per Git einbinden kann.
+  Alles, was committet wird, ist damit für alle lesbar, auch die Historie.
 - **azphysics bindet azmath mit festem `rev`** ein (Entscheidung D-006), nie mit einem
   Branch-Namen. Das `rev` ist ein Commit-Hash aus `master` von azmath und wird bewusst
   aktualisiert; der geprüfte Commit steht in [STATUS.md](../STATUS.md).

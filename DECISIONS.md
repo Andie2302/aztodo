@@ -25,7 +25,7 @@
   Modelle werden mit analytischen Referenzen getestet (siehe AZP-020).
 - D-008: Der Standardbranch heißt in allen drei Repositories `master`. Änderungen laufen
   über Branch und Pull Request; gemergte Branches werden gelöscht
-  (siehe [Git-Arbeitsweise](docs/GIT-ARBEITSWEISE.md)). azmath ist öffentlich.
+  (siehe [Git-Arbeitsweise](docs/GIT-ARBEITSWEISE.md)). Alle drei Repositories sind öffentlich.
 
 ## Noch offen
 
