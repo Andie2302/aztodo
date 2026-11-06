@@ -1,7 +1,7 @@
 # Git-Arbeitsweise für azmath, azphysics und aztodo
 
 Kurzes Nachschlagewerk, damit man zwischen den drei Repositories nicht den Überblick verliert.
-Stand: 2026-11-07 (Grundregel „direkt auf master“ ergänzt).
+Stand: 2026-11-06 (Grundregel „direkt auf master“ ergänzt).
 
 ## Festlegungen
 
