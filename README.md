@@ -1,6 +1,6 @@
 # az-Projektplan
 
-> **Zuletzt gegen azmath geprüft:** Commit `c839bc7f` (2026-11-07). Bei neueren Commits Status zuerst abgleichen.
+> **Zuletzt gegen azmath geprüft:** Commit `b3418efc` (2026-11-07). Bei neueren Commits Status zuerst abgleichen.
 
 Die gemeinsame Planung für [azmath](https://github.com/Andie2302/azmath) und
 [azphysics](https://github.com/Andie2302/azphysics). Hier steht, was als Nächstes
@@ -13,8 +13,10 @@ kommt, wohin eine Funktion gehört und welche Voraussetzungen sie benötigt.
 | aztodo | Gemeinsame Prioritäten, Abhängigkeiten und Entscheidungen | Zentrale Planung; enthält keinen Laufzeitcode |
 
 **Abgeschlossen:** Verteilungsreferenzen, zentrale Roadmap, technische
-Release-Vorbereitung, MINRES/PMINRES und direkte azphysics→azmath-Anbindung.
-**Als Nächstes:** AZM-030, symplektisches Verlet für separable Hamilton-Systeme.
+Release-Vorbereitung, MINRES/PMINRES, direkte azphysics→azmath-Anbindung und
+symplektisches Verlet (AZM-030).
+**Als Nächstes:** AZP-010 (Konventionen) und AZP-020 (freier Flug, Oszillator) in
+azphysics; dafür das azmath-`rev` auf mindestens `b3418ef` anheben.
 Eine crates.io-Veröffentlichung (AZM-011) ist gesondert zu entscheiden.
 
 - [Stand und Nachweise](STATUS.md): Was tatsächlich vorhanden und geprüft ist.

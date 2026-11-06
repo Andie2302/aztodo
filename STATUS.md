@@ -15,7 +15,7 @@ Version **0.0.1** laut Cargo.toml. Stand dieses Arbeitspakets:
 | Iterative Löser | CG/PCG, GMRES, BiCGSTAB und Vorkonditionierer | Arnoldi-/Lanczos-Invarianten für f32/f64; MINRES/PMINRES mit konstantem Speicher vorhanden |
 | Sparse | Formate, Umordnungen, direkte Löser, Musterwiederverwendung | Property- und Robustheitstests; komplexer Ausbau/AMG weiter offen |
 | Nichtlineares | Brent, Newton, LM, BFGS/L-BFGS und weitere Optimierung | Chandrupatla fehlt; schwierige NLPs benötigen weitere Robustheit |
-| ODE/PDE | Explizite/implizite ODE, Radau/ROS2/BDF, Grunddiskretisierungen | Verlet und implizites Gauss–Legendre-RK fehlen; Quadratur ist bereits vorhanden |
+| ODE/PDE | Explizite/implizite ODE, Radau/ROS2/BDF, Grunddiskretisierungen | symplektisches Verlet (`ode::verlet`, `ode::verlet_separable`) vorhanden; implizites Gauss–Legendre-RK fehlt; Quadratur ist bereits vorhanden |
 | Statistik | CDF, direkte SF, Quantil und ISF für acht Verteilungsfamilien | 606 Referenzfälle, neun Robustheits-/Invariantentests; große Formparameter nicht umfassend abgedeckt |
 
 Lokal bestanden: je **1.211 Tests inklusive 93 Doctests** mit allen Features
@@ -31,9 +31,9 @@ endete ohne Fund nach 3.411.026 Durchläufen. Er gehört zum damaligen Target un
 auf später ergänzte Assertions oder sämtliche Module.
 
 Am früheren Stand `8e01f6a` fehlten MINRES, Chandrupatla, Verlet und implizites
-Gauss–Legendre-RK. MINRES/PMINRES ist jetzt implementiert. Chandrupatla, Verlet-
-Integratoren und implizites Gauss–Legendre-RK bleiben offen; bloße Worttreffer
-wie „Verletzung“ sind kein Nachweis eines Integrators.
+Gauss–Legendre-RK. MINRES/PMINRES ist jetzt implementiert, ebenso Verlet
+(AZM-030, siehe unten). Chandrupatla und implizites Gauss–Legendre-RK bleiben
+offen; bloße Worttreffer wie „Verletzung“ sind kein Nachweis eines Integrators.
 
 AZM-010: Publish-Dry-Run und 1.211 Tests aus dem entpackten Crate erfolgreich;
 Rust-1.85.0-Builds für alle Features und libm+alloc sowie 15 MINRES-Tests bestanden.
@@ -45,10 +45,22 @@ Beim gezielten Diagonaltest reduziert Vorkonditionierung 14 auf 2 Iterationen
 Das ist technische Release-Vorbereitung, keine crates.io-Veröffentlichung;
 diese bleibt AZM-011.
 
+AZM-030: `ode::verlet_separable` (Störmer-Verlet für `H = T(p) + V(q)`) und
+`ode::verlet` (`q'' = a(t, q)`), Ordnung 2, symplektisch, zeitumkehrbar,
+`verlet_work_len(n) = 4·n`. Stand: Commit `b3418efc34bdbabf983acc3bf7e5c679333ec0f3`
+(PR #5). 16 Tests (`tests/ode_verlet.rs`): Konvergenzordnung 2, beschränkter
+Energiefehler (Oszillator, Pendel) ohne Drift bei zehnfacher Laufzeit, Zeitumkehr,
+exakte Integration bei konstanter Beschleunigung, separables System mit Masse,
+Fehlerfälle, f32. Alle 18 azmath-CI-Jobs waren auf diesem Stand grün. Die
+Tests wurden in der Arbeitssitzung nicht lokal ausgeführt; die erste Ausführung
+war die CI (ein fehlerhafter Test wurde dabei korrigiert, der Code nicht).
+
 ## azphysics
 
 Version **0.0.1**, Gerüst mit direkter Git-Abhängigkeit, noch ohne Physikmodelle.
-AZP-002 bindet azmath an `c839bc7f2d83c6f4a2a9baef20abda2ea03fc2a9`.
+AZP-002 bindet azmath an `c839bc7f2d83c6f4a2a9baef20abda2ea03fc2a9`; dieser Stand
+enthält Verlet noch **nicht**. Für AZP-020 ist ein bewusstes rev-Update auf
+mindestens `b3418efc34bdbabf983acc3bf7e5c679333ec0f3` nötig (D-006).
 Dieser Commit ergänzt gegenüber dem oben geprüften Rechenstand nur den
 experimentellen README-Hinweis; alle 18 azmath-CI-Prüfungen waren erfolgreich.
 

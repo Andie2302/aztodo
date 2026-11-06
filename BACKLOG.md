@@ -21,10 +21,10 @@ Status: **Erledigt** = implementiert und mit verlinkten Nachweisen geprüft;
 
 | ID | Repo | Status | Voraussetzungen | Abnahme |
 |---|---|---|---|---|
-| AZM-030 | azmath | Offen | AZM-010 | Separable symplektische Verlet-Schritte; Ordnung 2, Zeitumkehr, beschränkter Energiefehler am Oszillator, konstante/allokationsfreie Puffer |
+| AZM-030 | azmath | Erledigt | AZM-010 | Separable symplektische Verlet-Schritte (`ode::verlet`, `ode::verlet_separable`); Ordnung 2, Zeitumkehr, beschränkter Energiefehler am Oszillator und Pendel, konstante/allokationsfreie Puffer. Nachweis: 16 Tests in `tests/ode_verlet.rs`, PR #5, Commit `b3418ef`, alle 18 CI-Jobs grün |
 | AZM-031 | azmath | Offen | AZM-010, Newton/lineare Löser vorhanden | Implizites Gauss–Legendre-RK, zunächst zwei Stufen/Ordnung 4; Stufenkonvergenz, Rückwärtsintegration und strukturtreue Referenzfälle |
 | AZP-010 | azphysics | Offen | AZP-001, PLAN-001 | SI-/Einheitenkonventionen, Koordinaten, Zustandslayout und Fehlerdiagnosen festgelegt; ungültige Massen/Zeitschritte abgewiesen |
-| AZP-020 | azphysics | Offen | AZM-010, AZP-010, benötigter Integrator wie AZM-030 | Freier Flug und Oszillator gegen analytische Lösungen, Energie-/Impulsdiagnostik und reproduzierbare Beispiele; azmath als Git-Abhängigkeit mit festem `rev` (D-006); `cargo test` in der CI (D-007) |
+| AZP-020 | azphysics | Offen | AZM-010, AZP-010, Integrator AZM-030 (erledigt; azphysics muss dafür das azmath-`rev` auf mindestens `b3418ef` anheben, D-006) | Freier Flug und Oszillator gegen analytische Lösungen, Energie-/Impulsdiagnostik und reproduzierbare Beispiele; azmath als Git-Abhängigkeit mit festem `rev` (D-006); `cargo test` in der CI (D-007) |
 | GEO-001 | beide | Entscheidung | Konkrete Anforderungen aus AZP-020 | Allgemeine Geometrie versus simulationsspezifische Beschleunigung abgrenzen; vorerst kein viertes Repository voraussetzen |
 | AZP-030 | azphysics | Offen | GEO-001, geometrische Primitiven | BVH/Spatial Hash: Kandidaten gegen Brute-Force, leere Mengen, Zellgrenzen, Updates und deterministische Ergebnisse |
 | AZM-040 | azmath | Offen | AZM-010, Sparse/FDM/Multigrid vorhanden | Generische Neumann-/periodische Operatoren, Nullraumbehandlung, RHS-Kompatibilität und Gitter-Konvergenztests |

@@ -19,13 +19,14 @@ Git mit festem `rev`, Feature-Weiterleitung und eigenem Integrationstest.
 Chandrupatla (AZM-021) ist eine nachrangige Ergänzung: Brent ist bereits da.
 Die Entscheidung hängt von messbarem Nutzen an problematischen Nullstellen ab.
 
-**Als Nächstes aktiv:** AZM-030. Eine tatsächliche Veröffentlichung ist als
+**Als Nächstes aktiv:** AZP-010 und AZP-020 in azphysics (mit azmath-`rev` ab
+`b3418ef`, das Verlet enthält); azmath-seitig AZM-031. Eine tatsächliche Veröffentlichung ist als
 AZM-011 separat zu entscheiden; der erfolgreiche Dry-Run veröffentlicht nichts.
 
 ## Mittelfristig: Werkzeuge für erste physikalische Modelle
 
-1. AZM-030 Verlet für separable Hamilton-Systeme und AZM-031 implizites
-   Gauss–Legendre-Runge–Kutta. Gauss–Legendre-**Quadratur** ist bereits vorhanden;
+1. AZM-030 Verlet für separable Hamilton-Systeme (**erledigt**, `b3418ef`) und
+   AZM-031 implizites Gauss–Legendre-Runge–Kutta. Gauss–Legendre-**Quadratur** ist bereits vorhanden;
    der Integrator ist eine eigene Aufgabe.
 2. AZP-010 Einheiten-/Zustandskonventionen und AZP-020 erste Referenzmodelle
    (freier Flug, harmonischer Oszillator). Integration und lineare Algebra
