@@ -22,11 +22,13 @@ flowchart TD
 ```
 
 azmath hängt nicht von azphysics ab. azphysics bindet azmath direkt per Git und
-festem `rev` ein: `c839bc7f2d83c6f4a2a9baef20abda2ea03fc2a9` (AZP-002).
+festem `rev` ein: `3c6068a5f218aaba940a85a73606c9f61c8ebdc9` (AZP-002).
 `default-features = false` verhindert ein ungewolltes std-Backend; std, libm,
 micromath und alloc werden durch die entsprechenden azphysics-Features
-weitergereicht. Cargo.lock wird mit versioniert. Physikalische Modelle sind
-weiterhin geplant; die Anbindung prüft zunächst mathematische APIs und Builds.
+weitergereicht. Cargo.lock wird mit versioniert. Die ersten Punktmassenmodelle
+(AZP-010/020) verwenden azmath-Verlet und ergänzen physikalische Parameter,
+SI-Zustände sowie Energie-/Impulsdiagnostik. Analytische Referenzen und
+Schrittweiten-/Zeitumkehrtests laufen in CI.
 
 ## Zuordnung der gewünschten Verfahren
 

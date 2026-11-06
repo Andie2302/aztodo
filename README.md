@@ -1,6 +1,6 @@
 # az-Projektplan
 
-> **Zuletzt gegen azmath geprüft:** Commit `b3418efc` (2026-11-07). Bei neueren Commits Status zuerst abgleichen.
+> **Zuletzt gegen azmath geprüft:** Commit `3c6068a5` (2026-11-07). Bei neueren Commits Status zuerst abgleichen.
 
 Die gemeinsame Planung für [azmath](https://github.com/Andie2302/azmath) und
 [azphysics](https://github.com/Andie2302/azphysics). Hier steht, was als Nächstes
@@ -9,14 +9,14 @@ kommt, wohin eine Funktion gehört und welche Voraussetzungen sie benötigt.
 | Repository | Aufgabe | Aktueller Stand |
 |---|---|---|
 | azmath | Allgemeine Mathematik und numerische Verfahren | Implementiert; numerische Absicherung und Ausbau laufen |
-| azphysics | Physikalische Modelle und Simulationen auf dieser Grundlage | Gerüst 0.0.1 mit fest gebundener azmath-Revision, Modelle noch geplant |
+| azphysics | Physikalische Modelle und Simulationen auf dieser Grundlage | Punktmassenmodelle 0.0.1, feste azmath-Revision und SI-Konventionen |
 | aztodo | Gemeinsame Prioritäten, Abhängigkeiten und Entscheidungen | Zentrale Planung; enthält keinen Laufzeitcode |
 
-**Abgeschlossen:** Verteilungsreferenzen, zentrale Roadmap, technische
-Release-Vorbereitung, MINRES/PMINRES, direkte azphysics→azmath-Anbindung und
-symplektisches Verlet (AZM-030).
-**Als Nächstes:** AZP-010 (Konventionen) und AZP-020 (freier Flug, Oszillator) in
-azphysics; dafür das azmath-`rev` auf mindestens `b3418ef` anheben.
+**Abgeschlossen:** Verteilungsreferenzen, technische Release-Vorbereitung,
+MINRES/PMINRES, Verlet, direkte Git-Anbindung sowie SI-Konventionen und erste
+Physikmodelle (freier Flug, konstante Beschleunigung, harmonischer Oszillator).
+**Als Nächstes:** AZM-031, implizites Gauss–Legendre-Runge–Kutta in azmath.
+
 Eine crates.io-Veröffentlichung (AZM-011) ist gesondert zu entscheiden.
 
 - [Stand und Nachweise](STATUS.md): Was tatsächlich vorhanden und geprüft ist.

@@ -19,9 +19,9 @@ Git mit festem `rev`, Feature-Weiterleitung und eigenem Integrationstest.
 Chandrupatla (AZM-021) ist eine nachrangige Ergänzung: Brent ist bereits da.
 Die Entscheidung hängt von messbarem Nutzen an problematischen Nullstellen ab.
 
-**Als Nächstes aktiv:** AZP-010 und AZP-020 in azphysics (mit azmath-`rev` ab
-`b3418ef`, das Verlet enthält); azmath-seitig AZM-031. Eine tatsächliche Veröffentlichung ist als
-AZM-011 separat zu entscheiden; der erfolgreiche Dry-Run veröffentlicht nichts.
+**Als Nächstes aktiv:** AZM-031. AZP-010 und AZP-020 sind mit geprüften
+Konventionen, ersten Modellen und CI-Nachweisen abgeschlossen. Eine tatsächliche
+Veröffentlichung bleibt AZM-011; die Git-Abhängigkeit ist keine crates.io-Veröffentlichung.
 
 ## Mittelfristig: Werkzeuge für erste physikalische Modelle
 
@@ -29,8 +29,8 @@ AZM-011 separat zu entscheiden; der erfolgreiche Dry-Run veröffentlicht nichts.
    AZM-031 implizites Gauss–Legendre-Runge–Kutta. Gauss–Legendre-**Quadratur** ist bereits vorhanden;
    der Integrator ist eine eigene Aufgabe.
 2. AZP-010 Einheiten-/Zustandskonventionen und AZP-020 erste Referenzmodelle
-   (freier Flug, harmonischer Oszillator). Integration und lineare Algebra
-   werden aus azmath wiederverwendet.
+   sind erledigt: freier Flug, konstante Beschleunigung und harmonischer
+   Oszillator. Die Integration verwendet azmath-Verlet.
 3. AZM-040 Randbedingungen und Nullräume bei generischen PDE-Operatoren;
    AZP-051 physikalische Druckprojektion darauf aufbauen.
 4. GEO-001 Zuständigkeit räumlicher Beschleunigungsstrukturen klären, danach

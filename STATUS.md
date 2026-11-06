@@ -1,13 +1,14 @@
 # Stand und Nachweise
 
-Stand: 2026-11-07. Grundlage ist der tatsächliche Quelltext, ergänzt um lokale
-Prüfungen. Eine konfigurierte CI ist kein Nachweis für einen bereits erfolgreich
+Stand: 2026-11-07. Grundlage sind Quelltext und GitHub CI; ältere lokale
+Prüfungen sind als historische Nachweise markiert. Eine konfigurierte CI ist kein Nachweis für einen bereits erfolgreich
 durchgelaufenen GitHub-Job.
 
 ## azmath
 
-Version **0.0.1** laut Cargo.toml. Stand dieses Arbeitspakets:
-`b094d8ca132447f8ac26d7c2b4a7d7441c55316b`.
+Version **0.0.1** laut Cargo.toml. Aktueller Referenzstand:
+`3c6068a5f218aaba940a85a73606c9f61c8ebdc9` (PR #6, Verlet-Dokumentation präzisiert).
+Die historische technische Basisprüfung unten gehört zu `b094d8ca`.
 
 | Bereich | Vorhanden | Nachweis / verbleibende Grenze |
 |---|---|---|
@@ -18,7 +19,7 @@ Version **0.0.1** laut Cargo.toml. Stand dieses Arbeitspakets:
 | ODE/PDE | Explizite/implizite ODE, Radau/ROS2/BDF, Grunddiskretisierungen | symplektisches Verlet (`ode::verlet`, `ode::verlet_separable`) vorhanden; implizites Gauss–Legendre-RK fehlt; Quadratur ist bereits vorhanden |
 | Statistik | CDF, direkte SF, Quantil und ISF für acht Verteilungsfamilien | 606 Referenzfälle, neun Robustheits-/Invariantentests; große Formparameter nicht umfassend abgedeckt |
 
-Lokal bestanden: je **1.211 Tests inklusive 93 Doctests** mit allen Features
+Historische Basisprüfung (`b094d8ca`), lokal bestanden: je **1.211 Tests inklusive 93 Doctests** mit allen Features
 bzw. libm+alloc; Clippy, Formatierung, Rustdoc, Embedded-libm+alloc-Build und
 drei micromath-Smoke-Tests. Die Referenzgenauigkeit gilt für std/libm.
 
@@ -55,30 +56,44 @@ Fehlerfälle, f32. Alle 18 azmath-CI-Jobs waren auf diesem Stand grün. Die
 Tests wurden in der Arbeitssitzung nicht lokal ausgeführt; die erste Ausführung
 war die CI (ein fehlerhafter Test wurde dabei korrigiert, der Code nicht).
 
+Aktuelle CI von azmath PR #6: 18 erfolgreiche Jobs; der All-Features-Lauf hat
+**1.228 Tests inklusive Doctests** bestanden. Die Verlet-Dokumentation nennt
+jetzt die Hamilton-Voraussetzungen, stabile Schrittweiten und die mögliche
+Energiezufuhr durch zeitabhängige Kräfte. Keine numerische Implementierungsänderung.
+
 ## azphysics
 
-Version **0.0.1**, Gerüst mit direkter Git-Abhängigkeit, noch ohne Physikmodelle.
-AZP-002 bindet azmath an `c839bc7f2d83c6f4a2a9baef20abda2ea03fc2a9`; dieser Stand
-enthält Verlet noch **nicht**. Für AZP-020 ist ein bewusstes rev-Update auf
-mindestens `b3418efc34bdbabf983acc3bf7e5c679333ec0f3` nötig (D-006).
-Dieser Commit ergänzt gegenüber dem oben geprüften Rechenstand nur den
-experimentellen README-Hinweis; alle 18 azmath-CI-Prüfungen waren erfolgreich.
+Version **0.0.1**, erste Punktmassenmodelle mit direkter Git-Abhängigkeit.
+AZP-010 und AZP-020 sind implementiert und nach grüner CI gemergt:
+[PR #4](https://github.com/Andie2302/azphysics/pull/4), Code-Merge
+`1528bea62aba8a856b5cb9b39fae507d0d18e878`.
 
-Backend-Features std/libm/micromath und alloc werden ohne implizite azmath-
-Default-Features weitergeleitet. `azphysics::Real` ist das Trait dieser
-Abhängigkeit. Cargo.toml und Cargo.lock halten die Revision fest; neue Commits
-auf master ändern sie nicht automatisch. Ein bewusstes rev-Update folgt D-006.
+- State enthält endliche kartesische Position/Geschwindigkeit; SI-Konventionen,
+  positive Masse, nichtnegative Federkonstante und eindeutige Fehlerdiagnosen.
+- Freie Punktmasse, konstantes Beschleunigungsfeld und harmonischer Oszillator
+  mit Masse und Gleichgewichtslage. Energie-Nullpunkte und Impulsbilanz sind definiert.
+- Integration ausschließlich mit azmath-Verlet. Negative Schritte sind für
+  Zeitumkehr erlaubt; ungültige Uhren werden abgewiesen. Fehler erhalten den
+  letzten vollständig berechneten Zustand.
+- 20 neue f32/f64-Tests für analytische Lösungen, Ordnung 2, Zeitumkehr,
+  Energieverhalten, Parameter-/Zeit-/Bufferfehler und Überlaufbehandlung.
+- Zusammen mit den Integrationstests: 22 Tests ohne alloc und 23 mit alloc
+  bei std/libm. Bei reinem micromath nur die bisherigen zwei/drei Smoke-Tests;
+  keine präzise Physik-Freigabe.
 
-Lokal geprüft: zwei Integrationstests je Backend, mit alloc drei; std,
-libm und micromath jeweils mit/ohne alloc sowie alle Features. Ohne Backend
-werden die Tests nur kompiliert. Embedded-Builds mit libm und libm+alloc,
-Rust 1.85.0 mit std und libm+alloc, Clippy, Formatierung und Rustdoc bestanden.
-Micromath nutzt beim Näherungstest ein lockeres Smoke-Budget; daraus folgt
-keine Freigabe für genaue Physikberechnungen.
+Alle 14 CI-Jobs waren sowohl für Push als auch PR erfolgreich:
+[PR-Lauf](https://github.com/Andie2302/azphysics/actions/runs/42314757082).
+Darin: Backend-Matrix, Compile-only ohne Backend, Embedded libm/libm+alloc,
+Rust 1.85, Clippy, Formatierung und Rustdoc. In dieser Sitzung wurden gemäß
+D-008 **keine lokalen Tests** ausgeführt; lokal nur Formatierung und
+Cargo-Lockfile-Auflösung.
 
-Die CI führt diese Backend-Matrix und cargo test aus (D-007). Die Tests
-verifizieren Trait-/Löser-Nutzung und alloc-Weiterleitung, keine Physikmodelle.
-Ein Git-Abhängigkeitsupdate ist keine crates.io-Veröffentlichung (AZM-011).
+azmath-rev in Cargo.toml und Cargo.lock:
+`3c6068a5f218aaba940a85a73606c9f61c8ebdc9`. Updates bleiben bewusst (D-006).
+std/libm/micromath und alloc werden ohne implizite Default-Features weitergereicht.
+[Konventionen](https://github.com/Andie2302/azphysics/blob/master/docs/CONVENTIONS.md),
+[Validierungsbericht](https://github.com/Andie2302/azphysics/blob/master/docs/VALIDATION.md).
+Das ist keine crates.io-Veröffentlichung (AZM-011).
 
 ## Planung
 

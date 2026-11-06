@@ -30,6 +30,13 @@
   Branches werden gelöscht (siehe [Git-Arbeitsweise](docs/GIT-ARBEITSWEISE.md)).
   Alle drei Repositories sind öffentlich.
 
+- D-009: Erste Mechanikmodelle verwenden dokumentierte SI-Einheiten und
+  kartesische Arrays. State hält Position/Geschwindigkeit; Impuls wird als m*v
+  berechnet. Zunächst keine Einheitenbibliothek. Negative endliche Schritte
+  sind für Rückwärtsintegration erlaubt; null, nichtendliche oder nicht
+  darstellbare Schritte werden abgewiesen. Energieaussagen setzen geeignete
+  konservative Modelle und stabile Schrittweiten voraus.
+
 ## Noch offen
 
 - GEO-001: Paketgrenze für BVH/Spatial Hash und allgemeine räumliche Suche.
