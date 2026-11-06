@@ -26,18 +26,23 @@ drei micromath-Smoke-Tests. Die Referenzgenauigkeit gilt für std/libm.
 [Lanczos/Fuzzing](https://github.com/Andie2302/azmath/blob/master/docs/quality/lanczos-fuzz.md),
 [frühere Baseline](https://github.com/Andie2302/azmath/blob/master/docs/quality/coverage-special.md).
 
-Der vom Anwender gemeldete einstündige Fuzz-Lauf ohne Fund hatte 3.411.026
-Durchläufe. Er gehört zum damaligen Target und erweitert sich nicht automatisch
+Ein einstündiger Fuzz-Lauf des Targets `qp` (moderate Werte, `-max_total_time=3600`)
+endete ohne Fund nach 3.411.026 Durchläufen. Er gehört zum damaligen Target und erweitert sich nicht automatisch
 auf später ergänzte Assertions oder sämtliche Module.
+
+Gegen den Quelltext (Commit `8e01f6a`) geprüft: MINRES, Chandrupatla,
+Verlet-Integratoren und implizites Gauss–Legendre-RK sind nicht vorhanden. Die
+Textsuche „verlet“ trifft nur das deutsche Wort „Verletzung“ (Nebenbedingungen).
 
 ## azphysics
 
 Version **0.0.1**, Gerüst ohne Physikverfahren. Lokal geprüft: Clippy mit allen
 Features, Build ohne Default-Features, Embedded-Build ohne std mit alloc,
-Formatierung und Rustdoc mit Warnungen als Fehlern. MSRV 1.85 ist in CI
+Formatierung und Rustdoc mit Warnungen als Fehlern. Die CI führt `cargo test` aus
+(derzeit ohne Tests). MSRV 1.85 ist in CI
 konfiguriert, wurde in dieser Arbeitsumgebung nicht separat ausgeführt.
 
-Die azmath-Cargo-Abhängigkeit ist für das erste Modell geplant. Solange sie
+Die azmath-Cargo-Abhängigkeit ist für das erste Modell geplant (siehe D-006). Solange sie
 nicht eingebunden ist, gibt es auch keine behauptete Integration von
 azmath-Backends in azphysics.
 

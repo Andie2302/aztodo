@@ -1,5 +1,7 @@
 # az-Projektplan
 
+> **Zuletzt gegen azmath geprüft:** Commit `8e01f6a` (2026-11-06). Bei neueren Commits Status zuerst abgleichen.
+
 Die gemeinsame Planung für [azmath](https://github.com/Andie2302/azmath) und
 [azphysics](https://github.com/Andie2302/azphysics). Hier steht, was als Nächstes
 kommt, wohin eine Funktion gehört und welche Voraussetzungen sie benötigt.

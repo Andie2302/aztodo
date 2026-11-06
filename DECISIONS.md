@@ -16,6 +16,13 @@
 - D-005: Physik beginnt nach gezielter Basisfreigabe und Freigabe der benötigten
   mathematischen Verfahren. Der Begriff „azmath passt“ wird damit an konkrete
   Tests und Gültigkeitsbereiche gebunden, nicht an eine unendliche Featureliste.
+- D-006: Solange azmath nicht veröffentlicht ist, bindet azphysics es als
+  Git-Abhängigkeit mit festem `rev` ein (kein Branch-Name), damit Physik-Ergebnisse
+  reproduzierbar bleiben. Ein Update des `rev` ist eine bewusste Änderung mit
+  Verweis auf den geprüften azmath-Commit in STATUS.md. Nach der ersten
+  Veröffentlichung (AZM-010) wird auf eine Versionsabhängigkeit umgestellt.
+- D-007: Jede azphysics-CI führt `cargo test` aus, sobald es Code gibt;
+  Modelle werden mit analytischen Referenzen getestet (siehe AZP-020).
 
 ## Noch offen
 
