@@ -1,6 +1,8 @@
-# Präzisierte offene Arbeitspakete
+# Präzisierte Arbeitspakete
 
-Stand: 2026-11-07. Status, Priorität und Repository stehen im
+Stand: 2026-11-07. GEO-001/AZP-030 sind inzwischen mit D-012 und azphysics PR #6
+abgeschlossen; ihre Kriterien bleiben als nachvollziehbarer Vertrag erhalten.
+Status, Priorität und Repository stehen im
 [Backlog](../BACKLOG.md). Für jedes Paket gelten außerdem die
 [gemeinsamen Abnahmeregeln](ABNAHME.md). Die folgenden Kriterien sind geplante
 Anforderungen und keine Behauptung bereits bestandener Tests.

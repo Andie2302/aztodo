@@ -11,9 +11,10 @@ Am 2026-11-07 wurden die öffentlichen master-Stände und ihre GitHub-Checks ern
 | Repository | master-Commit | Nachweis |
 |---|---|---|
 | azmath | `d38e903614d479c56250b19e20f357cc058979ce` | [CI: 18/18 erfolgreich](https://github.com/Andie2302/azmath/actions/runs/42320812517) |
-| azphysics | `4e8354f8c2b8cc4c2cce04ea099203134eaaad6f` | [CI: 14/14 erfolgreich](https://github.com/Andie2302/azphysics/actions/runs/42320846762) |
+| azphysics | `99da4a3630d8ba782676d3752f66d577cf2c4691` | [CI: 14/14 erfolgreich](https://github.com/Andie2302/azphysics/actions/runs/42323286824) |
 
-Diese Stände ergänzen die unten genannten Code-Merges um Dokumentation.
+azmath ergänzt den unten genannten Code-Merge um Dokumentation; azphysics
+enthält jetzt zusätzlich den geprüften Spatial Hash aus PR #6 (Nachweis unten).
 azphysics pinnt weiterhin den geprüften azmath-Code-Merge `75c5dc04`; ein
 neuerer Dokumentationscommit erfordert kein automatisches Dependency-Update.
 Beide Cargo-Versionen bleiben **0.0.1**. aztodo enthält keinen Runtime-Code und
@@ -31,8 +32,9 @@ hat keine eigene CI; PLAN-002 wird durch Quellenabgleich sowie Dokumentprüfunge
   Regressionserkennung ist noch offen (QUAL-004). Der GL4-/Verlet-Vergleich ist kein Zeitbenchmark.
 - Radau/ROS2 adaptiv nutzen bisher Schrittverdopplung; eingebettete Schätzer
   sind jetzt explizite offene Pakete AZM-032/033. SEULEX existiert bereits.
-- Räumliche Suche, XPBD, kombinierbare Kraft-/Dämpfungsmodelle, erweiterte
-  PDE-/FEM-Ränder und Druckprojektion werden hier weiterhin nicht als implementiert ausgegeben.
+- Spatial Hash ist jetzt implementiert (AZP-030, siehe unten); BVH, XPBD,
+  kombinierbare Kraft-/Dämpfungsmodelle, erweiterte PDE-/FEM-Ränder und
+  Druckprojektion bleiben offen.
 
 PLAN-002: offene Aufgaben mit Umfang/Grenzen und Abnahmekriterien präzisiert;
 Qualitätspakete und notwendige Aufteilungen ergänzt. Neue Anforderungen
@@ -158,6 +160,51 @@ bis t=10 s liefert der f64-std-Lauf dimensionslose Zustandsfehler von etwa
 `3.08e-2` (Verlet) bzw. `4.05e-5` (GL4); dafür 101 Kraftauswertungen gegenüber
 600 RHS- und 200 Jacobi-Auswertungen. Gleiche Schrittzahlen sind kein gleicher
 Rechenaufwand. Keine lokalen Tests; nur Formatierung und Lockfile-Auflösung.
+
+### GEO-001 und AZP-030: Spatial Hash abgeschlossen
+
+Paketentscheidung D-012: dynamische Indizes/Positionskopien/IDs in azphysics,
+mathematische Primitive in azmath. Kein zusätzliches Repository. API-Alternativen,
+Datenbesitz, Updates und alloc-Grenzen sind in
+[SPATIAL.md](https://github.com/Andie2302/azphysics/blob/master/docs/SPATIAL.md) festgehalten.
+GEO-001 ist entschieden; BVH bleibt das getrennte offene Paket AZP-031.
+
+[azphysics PR #6](https://github.com/Andie2302/azphysics/pull/6), geprüfter Code
+`74b1e2ba79c7d0ba499b9a2aac6342bc13382d6f`, Merge `de20812ac5ce38196f6da524ef075cf4489d40dd`.
+Alle 14 Jobs sowohl für [Push](https://github.com/Andie2302/azphysics/actions/runs/42323038136)
+als auch [PR](https://github.com/Andie2302/azphysics/actions/runs/42323046591)
+erfolgreich (28 Checks). Die anschließende Dokumentation steht auf `99da4a3630d8ba782676d3752f66d577cf2c4691`
+und hat ebenfalls [14 erfolgreiche CI-Jobs](https://github.com/Andie2302/azphysics/actions/runs/42323286824).
+Keine lokalen Tests; Ausführung ausschließlich in GitHub CI.
+
+- `spatial::SpatialHash<T,D>` mit alloc und no_std für 2D/3D; stabile externe IDs,
+  Einfügen, Update, Entfernen, Leeren und atomarer Neuaufbau.
+- Deterministische sortierte Radius-/Paarkandidaten; Hash-Kollisionen prüfen
+  vollständige Zellkoordinaten, Paare sind eindeutig und ohne Selbstpaare.
+- NaN/Inf, ungültige Parameter/IDs und Koordinaten außerhalb
+  `|position/cell_size| <= 2^50` werden abgewiesen. Rundungshalos und konservativer
+  Scan bei großen Queries verhindern unbeschränkte Zellschleifen.
+- 38 neue std/libm-Tests (f32/f64 × 2D/3D plus Konstruktor/Größenszenen),
+  ein Doctest. Reines micromath: 20 Spatial-Tests nur für f32, dessen einzigem
+  Real-Typ. Der erste CI-Lauf deckte eine falsche f64-Backend-Auswahl im Beispiel
+  auf; Testauswahl/Beispiel korrigiert, anschließend alle Jobs grün.
+- Inklusive bestehender Tests: 66 mit std/libm + alloc (inklusive Doctest),
+  24 mit reinem micromath + alloc; ohne alloc unverändert 26 bei std/libm.
+  Embedded libm+alloc, MSRV 1.85, Clippy, Formatierung und Rustdoc erfolgreich.
+- Beispiel `03_spatial_hash` in CI mit alloc-Backends ausgeführt. Beim Raster
+  mit Abstand/Zellgröße 0,5 m und Suchradius 0,51 m:
+
+| Partikel | Alle möglichen Paare | Kandidaten | Echte Nachbarn |
+|---|---|---|---|
+| 64 | 2016 | 305 | 94 |
+| 256 | 32640 | 2867 | 472 |
+| 1024 | 523776 | 13115 | 1984 |
+
+Alle echten Nachbarn enthalten. Kandidaten sind konservative Übermengen;
+exakte Distanz-/Kontaktprüfung folgt separat. Kein Zeitbenchmark; dichte Cluster
+oder große Radien können weiterhin quadratisch viele Kandidaten erzeugen.
+Keine periodischen Ränder/CCD/BVH/no-alloc-Variante durch diese Freigabe.
+Die azmath-Abhängigkeit bleibt unverändert auf `75c5dc04` gepinnt.
 
 ## Planung
 

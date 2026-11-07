@@ -12,6 +12,8 @@ legen prüfbare Ergebnisse und Grenzen fest. Code-/CI-Nachweise: [STATUS.md](STA
 - AZM-010/020: technische Release-Vorbereitung und MINRES/PMINRES.
 - AZM-030/031: Verlet und zweistufiges implizites Gauss–Legendre-RK4.
 - AZP-001/002: Physik-Gerüst, feste Git-Abhängigkeit und Feature-Weiterleitung.
+- GEO-001/AZP-030: Paketentscheidung D-012 und dynamischer 2D/3D-Spatial-Hash
+  mit stabilen IDs, atomaren Updates und Brute-Force-Referenztests.
 - AZP-010/020: SI-Konventionen, Punktmassenmodelle und analytische Referenztests;
   zusätzlicher GL4-/Verlet-Vergleich vorhanden.
 
@@ -21,23 +23,22 @@ sind unterschiedliche mathematische Werkzeuge.
 
 ## Als nächster Umsetzungsschritt empfohlen
 
-1. **GEO-001 entscheiden:** vorhandene Geometrie inventarisieren, Abfragen und
-   Modulzuordnung für räumliche Suche anhand kleiner API-Skizzen festlegen.
-2. **AZP-030 Spatial Hash:** zuerst ein überschaubarer 2D/3D-Partikelindex mit
-   Brute-Force-Referenz, stabilen IDs und definierten Zellgrenzen/Updates.
-3. **AZP-040 XPBD-Distanzbedingungen:** kann nach den bereits vorhandenen
-   Punktmassenmodellen auch unabhängig von der räumlichen Suche entstehen.
-4. **AZP-041 Kontakte:** erst nach XPBD-Basis und einem geprüften räumlichen Index;
-   zunächst reibungsfrei. BVH (AZP-031) ist eine getrennte spätere Alternative.
+1. **AZP-040 XPBD-Distanzbedingungen:** Teilchen mit inversen Massen,
+   Compliance/dt², fixierten Punkten und einem klaren Lambda-Vertrag.
+2. **AZP-041 Kontakte:** nach der XPBD-Basis mit dem vorhandenen Spatial Hash;
+   zunächst reibungsfrei und mit Brute-Force-/Bilanzreferenzen.
+3. **AZP-031 BVH:** getrennte spätere Alternative, wenn AABB-/Objektabfragen den
+   Bedarf zeigen. Allgemeine Primitive in azmath, dynamischer Index in azphysics.
 
 Das ist die empfohlene Reihenfolge, keine Behauptung bereits begonnener
-Implementierung. Ein kleines Distanzmodell benötigt weder AMG noch eine BVH.
+XPBD-Implementierung. GEO-001 und Spatial Hash sind abgeschlossen; BVH und
+XPBD bleiben offen. Ein kleines Distanzmodell benötigt weder AMG noch eine BVH.
 
 ## Abhängigkeiten der nächsten Modellschritte
 
 ```mermaid
 flowchart TD
-    GEO[GEO-001: Zuständigkeit] --> SEARCH[AZP-030: Spatial Hash]
+    GEO[GEO-001: entschieden] --> SEARCH[AZP-030: Spatial Hash vorhanden]
     MODEL[AZP-020: Punktmassen vorhanden] --> XPBD[AZP-040: Distanzbedingungen]
     SEARCH --> CONTACT[AZP-041: Kontakte]
     XPBD --> CONTACT

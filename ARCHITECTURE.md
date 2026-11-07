@@ -41,14 +41,16 @@ prüft Verlet gegen Gauss–Legendre-RK4; das Modell-API delegiert weiterhin an 
 | Brent / Chandrupatla | Skalare Nullstellensuche | Zustandsgleichungen und Ereignisse |
 | APIC / FLIP + Druck-PCG | Interpolation, Sparse-Operatoren, PCG, Multigrid | Transfers, Massenerhaltung, Druckgleichung und Wände |
 | XPBD | Generische Algebra, Differentiation, ggf. allgemeine Projektionslöser | Nachgiebige Zwangsbedingungen, inverse Massen, Kontaktreaktionen |
-| BVH / Spatial Hash | Allgemeine Geometrie; endgültige Paketgrenze noch GEO-001 | Kontaktkandidaten und Nachbarschaftssuche |
+| BVH / Spatial Hash | Mathematische Primitive; vorhandene Rotationen/Transformationen bleiben hier | Dynamische Indizes/IDs/Positionskopien in spatial (D-012); Spatial Hash vorhanden, BVH offen |
 | Verlet | Separable Hamilton-Systeme, Schrittfunktionen | Kräfte, Massen und Zustände |
 | Gauss–Legendre | Quadratur und implizites RK4 vorhanden (AZM-031) | Strukturtreue zeitliche Integration geeigneter Modelle |
 
 ## Konkretisierung der nächsten Schnittstellen
 
-- GEO-001 entscheidet anhand von Abfragen, Datenbesitz und alloc-Bedarf die
-  Modulgrenze; AZP-030 Spatial Hash und AZP-031 BVH sind getrennte Pakete.
+- GEO-001 ist durch D-012 entschieden: `azphysics::spatial` besitzt dynamische
+  Partikeldaten/IDs; mathematische Primitive bleiben in azmath. AZP-030 Spatial
+  Hash ist implementiert, AZP-031 BVH bleibt ein eigenes offenes Paket.
+  Index benötigt alloc; die bestehenden Mechanikmodelle bleiben allokationsfrei.
 - AZP-021 formuliert physikalische Kräfte und Dämpfung. Allgemeine ODE-Löser
   bleiben in azmath; geschwindigkeitsabhängige Kräfte passen nicht automatisch
   zum Vertrag des ortsabhängigen Verlet-Lösers.

@@ -45,9 +45,18 @@
   P1-FEM-Ränder (AZM-041) und höhere Ordnung (AZM-043). Eine Teilimplementierung
   darf damit nicht als Abschluss des früheren Sammelumfangs erscheinen.
 
+- D-012 (GEO-001): Dynamische Partikelindizes mit stabilen IDs, Positionskopien
+  und Update-Vertrag gehören in `azphysics::spatial` (no_std, optional alloc).
+  Mathematische Vektoren/Rotationen/Transformationen bleiben in azmath;
+  allgemeine AABB-Primitiven gehören bei Bedarf ebenfalls dorthin. Der
+  simulationsbezogene BVH-Index bleibt ein eigenes azphysics-Paket AZP-031.
+  Zunächst Radius-/Paarkandidaten in 2D/3D, deterministische IDs und konservative
+  Übermengen; exakte Kontaktprüfung ist AZP-041. Der erste Index besitzt Daten
+  und verwendet alloc; eine no-alloc-Variante ist nicht zugesagt. Die Alternativen
+  und API-Skizzen stehen in [azphysics/docs/SPATIAL.md](https://github.com/Andie2302/azphysics/blob/master/docs/SPATIAL.md).
+
 ## Noch offen
 
-- GEO-001: Paketgrenze für BVH/Spatial Hash und allgemeine räumliche Suche.
 - AZP-022: Für die ersten Modelle ist per D-009 entschieden (SI-Konvention,
   kartesische Arrays, keine Einheitenbibliothek). Offen bleibt, ob später eigene
   Einheitentypen oder eine externe Bibliothek folgen; Zustandslayout und
