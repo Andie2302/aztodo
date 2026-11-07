@@ -36,15 +36,28 @@
   darstellbare Schritte werden abgewiesen. Energieaussagen setzen geeignete
   konservative Modelle und stabile Schrittweiten voraus.
 
+- D-010: Neue Arbeitspakete verwenden [gemeinsame Abnahmeregeln](docs/ABNAHME.md)
+  und [konkrete Spezifikationen](docs/ARBEITSPAKETE.md). Entscheidungspakete
+  schließen mit einer dokumentierten Wahl ab, Implementierungspakete erst mit
+  Code und Prüfnachweis. Neue Kriterien gelten nicht rückwirkend als historisch erfüllt.
+- D-011: Planung trennt Spatial Hash (AZP-030) und BVH (AZP-031),
+  XPBD-Distanzbedingungen (AZP-040) und Kontakte (AZP-041) sowie
+  P1-FEM-Ränder (AZM-041) und höhere Ordnung (AZM-043). Eine Teilimplementierung
+  darf damit nicht als Abschluss des früheren Sammelumfangs erscheinen.
+
 ## Noch offen
 
 - GEO-001: Paketgrenze für BVH/Spatial Hash und allgemeine räumliche Suche.
-- AZP-010 (Rest): Für die ersten Modelle ist per D-009 entschieden (SI-Konvention,
+- AZP-022: Für die ersten Modelle ist per D-009 entschieden (SI-Konvention,
   kartesische Arrays, keine Einheitenbibliothek). Offen bleibt, ob später eigene
   Einheitentypen oder eine externe Bibliothek folgen; Zustandslayout und
   SIMD-/Parallelisierungsbedarf erst bei konkretem Bedarf.
 - AZP-060: Bestehendes IAPWS als separates Referenz-/Anwendungscrate erhalten
   oder künftig als optionales Materialmodul anbinden.
+- AZM-033: Konkretes Rosenbrock-Paar anhand zitierter Koeffizienten und
+  Referenzfälle auswählen; noch kein bestimmtes RODAS-Verfahren festgelegt.
+- QUAL-004: Benchmark-Verfahren, Hardware und Regressionsgrenzen aus einer Baseline ableiten.
+- AZP-070: Konkrete spätere SPH-/Strömungs-/Thermodynamikpakete auswählen.
 - AZM-011: Erste Veröffentlichung, SemVer-Strategie und Prüfmatrix für eine
   freigegebene Version. Kein automatisches Veröffentlichen auf crates.io.
 

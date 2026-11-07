@@ -1,60 +1,90 @@
 # Gemeinsame Roadmap
 
-Stand: 2026-11-07. Status und Abnahmekriterien sind in [BACKLOG.md](BACKLOG.md)
-verbindlich benannt; die hier gezeigten Horizonte legen die Reihenfolge fest.
+Stand: 2026-11-07. Diese Horizonte beschreiben Prioritäten, keine Termine.
+[BACKLOG.md](BACKLOG.md) ist der vollständige Aufgabenindex;
+[Details](docs/ARBEITSPAKETE.md) und [Abnahmeregeln](docs/ABNAHME.md)
+legen prüfbare Ergebnisse und Grenzen fest. Code-/CI-Nachweise: [STATUS.md](STATUS.md).
 
-## Kurzfristig: Grundlage verlässlich und übersichtlich machen
+## Abgeschlossen
 
-| Reihenfolge | Aufgabe | Voraussetzung | Ergebnis |
-|---|---|---|---|
-| 1 | AZM-001 Verteilungen und Quantile | Bestehende Spezialfunktionen | Direkte obere Tails, Referenzen und Fehlerpfade; abgeschlossen in diesem Arbeitspaket |
-| 2 | PLAN-001 Gemeinsame Planung | Repository-Grenzen geklärt | Dieses Repository und verlinkte lokale Roadmaps |
-| 3 | AZP-001 Physik-Gerüst | PLAN-001 | Kleine kompilierbare Struktur mit no_std/alloc-Grenzen und CI; Modelle bleiben offen |
-| 4 | AZM-010 Basisprüfung und Release-Vorbereitung | AZM-001, vorhandene Krylov-/Sparse-Tests | Abgeschlossen: Paket-Dry-Run, entpackte Tests, MSRV und dokumentierte Prüfmatrix |
-| 5 | AZM-020 MINRES | AZM-010, LinearOperator, Vorkonditionierer | Abgeschlossen: MINRES/PMINRES, 15 f32/f64-/CSR-Tests und originale Residuenprüfung |
+- PLAN-001/002: zentrale Planung, Archiv und präzisierte Arbeitspakete.
+- AZM-001: Verteilungen/Quantile mit direkten oberen Tails und Referenzen.
+- AZM-010/020: technische Release-Vorbereitung und MINRES/PMINRES.
+- AZM-030/031: Verlet und zweistufiges implizites Gauss–Legendre-RK4.
+- AZP-001/002: Physik-Gerüst, feste Git-Abhängigkeit und Feature-Weiterleitung.
+- AZP-010/020: SI-Konventionen, Punktmassenmodelle und analytische Referenztests;
+  zusätzlicher GL4-/Verlet-Vergleich vorhanden.
 
-AZP-002 ist ebenfalls abgeschlossen: azphysics verwendet azmath direkt per
-Git mit festem `rev`, Feature-Weiterleitung und eigenem Integrationstest.
+AZM-010 ist keine crates.io-Veröffentlichung. AZM-011 bleibt eine separat
+beauftragte Entscheidung. Vorhandene Gauss–Legendre-Quadratur und RK4-Integrator
+sind unterschiedliche mathematische Werkzeuge.
 
-Chandrupatla (AZM-021) ist eine nachrangige Ergänzung: Brent ist bereits da.
-Die Entscheidung hängt von messbarem Nutzen an problematischen Nullstellen ab.
+## Als nächster Umsetzungsschritt empfohlen
 
-**Als Nächstes vorgeschlagen:** GEO-001, danach AZP-030 (räumliche Suche für Kontakte/XPBD).
-AZM-031 ist mit allokationsfreiem Gauss–Legendre-RK4 und Oszillatorvergleich erledigt. AZP-010 und AZP-020 sind mit geprüften
-Konventionen, ersten Modellen und CI-Nachweisen abgeschlossen. Eine tatsächliche
-Veröffentlichung bleibt AZM-011; die Git-Abhängigkeit ist keine crates.io-Veröffentlichung.
+1. **GEO-001 entscheiden:** vorhandene Geometrie inventarisieren, Abfragen und
+   Modulzuordnung für räumliche Suche anhand kleiner API-Skizzen festlegen.
+2. **AZP-030 Spatial Hash:** zuerst ein überschaubarer 2D/3D-Partikelindex mit
+   Brute-Force-Referenz, stabilen IDs und definierten Zellgrenzen/Updates.
+3. **AZP-040 XPBD-Distanzbedingungen:** kann nach den bereits vorhandenen
+   Punktmassenmodellen auch unabhängig von der räumlichen Suche entstehen.
+4. **AZP-041 Kontakte:** erst nach XPBD-Basis und einem geprüften räumlichen Index;
+   zunächst reibungsfrei. BVH (AZP-031) ist eine getrennte spätere Alternative.
 
-## Mittelfristig: Werkzeuge für erste physikalische Modelle
+Das ist die empfohlene Reihenfolge, keine Behauptung bereits begonnener
+Implementierung. Ein kleines Distanzmodell benötigt weder AMG noch eine BVH.
 
-1. AZM-030 Verlet für separable Hamilton-Systeme (**erledigt**, `b3418ef`) und
-   AZM-031 implizites Gauss–Legendre-Runge–Kutta (**erledigt**, `75c5dc04`). Gauss–Legendre-**Quadratur** ist bereits vorhanden;
-   der neue Integrator ist davon unabhängig.
-2. AZP-010 Einheiten-/Zustandskonventionen und AZP-020 erste Referenzmodelle
-   sind erledigt: freier Flug, konstante Beschleunigung und harmonischer
-   Oszillator. Die Integration verwendet azmath-Verlet.
-3. AZM-040 Randbedingungen und Nullräume bei generischen PDE-Operatoren;
-   AZP-051 physikalische Druckprojektion darauf aufbauen.
-4. GEO-001 Zuständigkeit räumlicher Beschleunigungsstrukturen klären, danach
-   AZP-030 BVH/Spatial Hash und AZP-040 XPBD.
-5. AZM-041 FEM-Randbedingungen und AZM-050 NLP-Robustheit nach Bedarf konkreter
-   Modelle. Zusätzliche Fehlerpfade und f32-Tests begleiten jeden Schritt.
+## Abhängigkeiten der nächsten Modellschritte
 
-## Langfristig: Partikel-Gitter-Simulation und größerer Umfang
+```mermaid
+flowchart TD
+    GEO[GEO-001: Zuständigkeit] --> SEARCH[AZP-030: Spatial Hash]
+    MODEL[AZP-020: Punktmassen vorhanden] --> XPBD[AZP-040: Distanzbedingungen]
+    SEARCH --> CONTACT[AZP-041: Kontakte]
+    XPBD --> CONTACT
+    PDE[AZM-040: Operatoren und Nullraum] --> PRESSURE[AZP-051: Druckprojektion]
+    PRESSURE --> TRANSFER[AZP-050: PIC / FLIP / APIC]
+```
 
-- AZP-050 APIC/FLIP: Partikel-Gitter-Transfers, affine Geschwindigkeiten,
-  Interpolation und Randbehandlung; gekoppelt mit AZP-051 Druckprojektion.
-- AZM-042 algebraisches Multigrid, wenn Benchmarks den Bedarf zeigen.
-- AZM-060 reelle Schur-Vektoren/Eigenvektoren, AZM-070 weitere komplexe
-  Sparse-Verfahren sowie AZM-080 größere Parameterbereiche der Spezialfunktionen.
-- AZP-060 Materialmodelle und mögliche IAPWS-Anbindung; spätere SPH-/Strömungs-
-  und Thermodynamikmodule nur mit getrennten Referenzfällen und Modellannahmen.
-- Die übrigen Ideen der archivierten Roadmap behalten ihren Platz als
-  Kandidaten. Sie sind weder verloren noch ohne Prüfung als erledigt markiert.
+AZP-031 BVH kann den Spatial Hash für geeignete Kontaktabfragen ersetzen;
+ein geprüfter Index genügt. Die Pfeile zeigen notwendige Grundlagen, nicht
+sämtliche Kriterien eines Pakets.
 
-## Freigabe eines ersten Physikmodells
+## Kurzfristig begleitend: Qualität und erste Modellbausteine
 
-Vor AZP-020 müssen AZM-010 und AZP-010 abgeschlossen sein und der benötigte
-Integrator seine Abnahmekriterien erfüllen. Für einen Oszillator ist das
-beispielsweise AZM-030; für XPBD sind zusätzlich Zwangsbedingungen und Kontakte
-relevant; APIC/FLIP benötigt Transfers und einen separat validierten Druckschritt.
-Ein offenes AMG- oder Schur-Projekt blockiert deshalb keinen einfachen Oszillator.
+- QUAL-001: Testmatrix und gezielte f32-/Backend-/Vorkonditioniererlücken.
+- QUAL-002: vorhandene Fuzz-/Property-Tests erweitern, besonders ODE;
+  existierende FFT-/Sparse-/special-/QP-Targets weiterverwenden.
+- QUAL-003: aktuelle Coverage auswerten und wichtige Fehlerpfade schließen.
+- QUAL-004: reproduzierbare Benchmark-Baseline; harte Grenzwerte erst nach
+  Messung von Streuung und Festlegung geeigneter Hardware.
+- AZP-021: kombinierbare Kräfte, Federn und korrekt integrierte Dämpfung.
+  AZP-022 entscheidet bei konkretem Bedarf Einheitentypen und Partikellayout.
+
+Qualitätspakete sind endliche, separat abnehmbare Verbesserungen. Die normalen
+Abnahmeregeln gelten ohnehin für jede neue Funktion; eine gesamte Qualitätsliste
+muss nicht vor jedem einfachen Physikmodell abgeschlossen werden.
+
+## Mittelfristig: steife Dynamik und Druckprojektion
+
+- AZM-032: eingebetteter Radau-Fehlerschätzer; AZM-033: begründet ausgewähltes
+  Rosenbrock-Paar. Zuerst Quellen/Koeffizienten und Referenzfälle, dann Implementierung.
+- AZM-040: generische 2D-Poisson-Ränder und Nullräume; danach AZP-051:
+  physikalische Druckprojektion auf einem 2D-MAC-Gitter.
+- AZM-041: P1-FEM-Neumann-/Robin-Ränder. Höhere Ordnung ist separat AZM-043.
+- AZM-050: SQP-Wiederherstellung; Maratos-Korrektur nach reproduzierbarem Bedarfsfall.
+
+## Langfristig: Transfers, größere Verfahren und Materialmodelle
+
+- AZP-050: PIC → FLIP → APIC getrennt testen, danach mit AZP-051 koppeln.
+  Erste Stufe 2D/konstante Dichte; freie Oberflächen und 3D später abgrenzen.
+- AZM-042: AMG erst bei belegtem Skalierungsbedarf; AZM-043: zunächst P2-FEM.
+- AZM-060: reelle Schur-/Eigenvektoren und Ritz-Paare; AZM-070: weitere komplexe
+  Sparse-Verfahren; AZM-080: breitere Referenz-/Genauigkeitsbereiche.
+- AZP-060: IAPWS-Bestand und Materialzuständigkeit entscheiden. AZP-070:
+  SPH/weitere Strömung/Thermodynamik vor Umsetzung in konkrete Modellpakete aufteilen.
+- AZM-021: Chandrupatla nur bei messbarem Nutzen gegenüber vorhandenem Brent.
+
+Weitere Ideen verbleiben im [Archiv](docs/archive/azmath-roadmap-2026-11-06.md).
+Vor einer Implementierung bekommen sie eine eigene ID, Zuständigkeit,
+Voraussetzungen, Grenzen und Abnahme. „Bewusst ausgelassen“ ist ein Hinweis
+auf mögliche Arbeit, keine dauerhafte Einschränkung.

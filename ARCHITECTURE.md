@@ -45,6 +45,20 @@ prüft Verlet gegen Gauss–Legendre-RK4; das Modell-API delegiert weiterhin an 
 | Verlet | Separable Hamilton-Systeme, Schrittfunktionen | Kräfte, Massen und Zustände |
 | Gauss–Legendre | Quadratur und implizites RK4 vorhanden (AZM-031) | Strukturtreue zeitliche Integration geeigneter Modelle |
 
+## Konkretisierung der nächsten Schnittstellen
+
+- GEO-001 entscheidet anhand von Abfragen, Datenbesitz und alloc-Bedarf die
+  Modulgrenze; AZP-030 Spatial Hash und AZP-031 BVH sind getrennte Pakete.
+- AZP-021 formuliert physikalische Kräfte und Dämpfung. Allgemeine ODE-Löser
+  bleiben in azmath; geschwindigkeitsabhängige Kräfte passen nicht automatisch
+  zum Vertrag des ortsabhängigen Verlet-Lösers.
+- AZP-040 enthält nur XPBD-Distanzbedingungen; räumliche Suche wird erst für
+  Kontakte in AZP-041 benötigt.
+- AZM-040 liefert mathematische Operatoren/Nullraumbehandlung; AZP-051 ergänzt
+  Dichte, Einheiten, MAC-Gitter und physikalische Wandbedingungen.
+- AZP-022 bewertet spätere Einheitentypen und Partikellayouts; die bisherigen
+  SI-Konventionen bleiben gültig. Einzelheiten: [Arbeitspakete](docs/ARBEITSPAKETE.md).
+
 ## Wichtige fachliche Voraussetzungen
 
 - PCG ist für symmetrisch positiv definite Systeme bestimmt. Bei reinem Neumann-

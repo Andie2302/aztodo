@@ -1,6 +1,7 @@
 # az-Projektplan
 
-> **Zuletzt gegen azmath geprüft:** Commit `75c5dc04` (2026-11-07). Bei neueren Commits Status zuerst abgleichen.
+> **Standabgleich:** azmath `d38e9036`, azphysics `4e8354f8` (2026-11-07).
+> Die feste azmath-Abhängigkeit bleibt `75c5dc04`; Details und CI-Nachweise in STATUS.md.
 
 Die gemeinsame Planung für [azmath](https://github.com/Andie2302/azmath) und
 [azphysics](https://github.com/Andie2302/azphysics). Hier steht, was als Nächstes
@@ -15,14 +16,17 @@ kommt, wohin eine Funktion gehört und welche Voraussetzungen sie benötigt.
 **Abgeschlossen:** Verteilungsreferenzen, technische Release-Vorbereitung,
 MINRES/PMINRES, Verlet, Gauss–Legendre-RK4, direkte Git-Anbindung sowie SI-Konventionen und erste
 Physikmodelle (freier Flug, konstante Beschleunigung, harmonischer Oszillator).
-**Als Nächstes:** GEO-001, Zuständigkeit räumlicher Suchstrukturen klären,
-danach AZP-030 (Spatial Hash/BVH) als Grundlage für Kontakte und XPBD.
+**Als Nächstes empfohlen:** GEO-001 entscheiden, dann AZP-030 Spatial Hash.
+XPBD-Distanzbedingungen (AZP-040) können unabhängig davon beginnen; Kontakte
+(AZP-041) benötigen später beides. QUAL-001–004 ergänzen die Qualitätssicherung.
 
 Eine crates.io-Veröffentlichung (AZM-011) ist gesondert zu entscheiden.
 
 - [Stand und Nachweise](STATUS.md): Was tatsächlich vorhanden und geprüft ist.
 - [Kurz-, mittel- und langfristige Schritte](ROADMAP.md): Die Reihenfolge.
-- [Aufgaben mit Abnahmekriterien](BACKLOG.md): Feste IDs, Zuständigkeit und Voraussetzungen.
+- [Aufgabenindex](BACKLOG.md): Feste IDs, Status, Zuständigkeit und Voraussetzungen.
+- [Arbeitspakete im Detail](docs/ARBEITSPAKETE.md): Umfang, Grenzen und überprüfbare Kriterien.
+- [Gemeinsame Abnahme](docs/ABNAHME.md): Fehlerbudgets, Referenzen und Abschlussnachweise.
 - [Architektur und Abhängigkeiten](ARCHITECTURE.md): Grenzen zwischen Mathematik und Physik.
 - [Entscheidungen und Pflege](DECISIONS.md): Was feststeht und was noch offen ist.
 - [Git-Arbeitsweise](docs/GIT-ARBEITSWEISE.md): Direkt auf `master` arbeiten, wann ein Branch sinnvoll ist, Branch-Schutz.
@@ -34,7 +38,8 @@ ihre Eingabebereiche, Fehlerfälle und passenden Genauigkeitstests dokumentiert
 sind. azphysics beginnt mit Modellen nach dieser Basisprüfung; vollständige
 Fertigstellung sämtlicher Mathematikideen ist dafür nicht erforderlich.
 
-Bei Änderungen an der Implementierung werden zuerst Tests und lokale
-Qualitätsberichte aktualisiert, danach hier Status, Voraussetzungen und nächste
-Aufgaben. Historische Hinweise wie „bewusst ausgelassen“ sind Anhaltspunkte für
+Bei Änderungen an der Implementierung werden zuerst Tests und Qualitätsberichte
+im Code-Repository aktualisiert, danach hier Status, Voraussetzungen und nächste
+Aufgaben. KI-Sitzungen führen gemäß Projektwunsch keine lokalen Tests aus;
+Ausführung und Nachweise kommen aus GitHub CI oder vom Projektinhaber. Historische Hinweise wie „bewusst ausgelassen“ sind Anhaltspunkte für
 offene Arbeit und keine dauerhaften Verbote.

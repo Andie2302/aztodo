@@ -4,9 +4,45 @@ Stand: 2026-11-07. Grundlage sind Quelltext und GitHub CI; ältere lokale
 Prüfungen sind als historische Nachweise markiert. Eine konfigurierte CI ist kein Nachweis für einen bereits erfolgreich
 durchgelaufenen GitHub-Job.
 
+## Aktueller Repository-Abgleich
+
+Am 2026-11-07 wurden die öffentlichen master-Stände und ihre GitHub-Checks erneut geprüft:
+
+| Repository | master-Commit | Nachweis |
+|---|---|---|
+| azmath | `d38e903614d479c56250b19e20f357cc058979ce` | [CI: 18/18 erfolgreich](https://github.com/Andie2302/azmath/actions/runs/42320812517) |
+| azphysics | `4e8354f8c2b8cc4c2cce04ea099203134eaaad6f` | [CI: 14/14 erfolgreich](https://github.com/Andie2302/azphysics/actions/runs/42320846762) |
+
+Diese Stände ergänzen die unten genannten Code-Merges um Dokumentation.
+azphysics pinnt weiterhin den geprüften azmath-Code-Merge `75c5dc04`; ein
+neuerer Dokumentationscommit erfordert kein automatisches Dependency-Update.
+Beide Cargo-Versionen bleiben **0.0.1**. aztodo enthält keinen Runtime-Code und
+hat keine eigene CI; PLAN-002 wird durch Quellenabgleich sowie Dokumentprüfungen belegt.
+
+### Bestand und noch offene Qualitätserweiterungen
+
+- azmath enthält bereits Arnoldi-f32/f64-Invarianten, ILU(0)/IC(0)/SSOR-Tests,
+  Property-Tests und FFT-/Sparse-/special-/QP-Fuzz-Targets. Keine erneute pauschale
+  Einstufung als „ungetestet“. Zusätzliche Präzisions-/Fehlerpfadabdeckung: QUAL-001/002.
+- Coverage-Artefakt, micromath-Smoke, Embedded, MSRV, Rustdoc und
+  Publish-Dry-Run/entpackte Tests sind bereits in CI vorhanden. Aktuelle
+  Coverage-Analyse und belastbare Schwellenwerte bleiben QUAL-003.
+- Benchmark-Beispiele und Berichte existieren; reproduzierbare Performance-
+  Regressionserkennung ist noch offen (QUAL-004). Der GL4-/Verlet-Vergleich ist kein Zeitbenchmark.
+- Radau/ROS2 adaptiv nutzen bisher Schrittverdopplung; eingebettete Schätzer
+  sind jetzt explizite offene Pakete AZM-032/033. SEULEX existiert bereits.
+- Räumliche Suche, XPBD, kombinierbare Kraft-/Dämpfungsmodelle, erweiterte
+  PDE-/FEM-Ränder und Druckprojektion werden hier weiterhin nicht als implementiert ausgegeben.
+
+PLAN-002: offene Aufgaben mit Umfang/Grenzen und Abnahmekriterien präzisiert;
+Qualitätspakete und notwendige Aufteilungen ergänzt. Neue Anforderungen
+sind geplant, nicht nachträglich bestandene Tests. Archiv und historische
+Prüfergebnisse bleiben erhalten. Quellen: aktuelle Repository-Bäume,
+CI-Konfigurationen, Qualitätsberichte und die oben verlinkten Läufe.
+
 ## azmath
 
-Version **0.0.1** laut Cargo.toml. Aktueller Referenzstand:
+Version **0.0.1** laut Cargo.toml. Numerischer Referenzstand:
 `75c5dc04c51ddf02568f15f4ab3c46f7ba4c2c7c` (PR #7, Gauss–Legendre-RK4).
 Die historische technische Basisprüfung unten gehört zu `b094d8ca`.
 
