@@ -26,10 +26,11 @@
   Modelle werden mit analytischen Referenzen getestet (siehe AZP-020).
 - D-008: Der Standardbranch heißt in allen drei Repositories `master`. Es wird ausschließlich
   direkt auf `master` gearbeitet, auch bei Code. Es gibt keine Branches und keine Pull Requests,
-  ohne Ausnahme (die frühere Ausnahme „sinnvollerer Branch“ ist widerrufen). In KI-Arbeitssitzungen werden
-  keine Tests und keine Prüfwerkzeuge ausgeführt (der Projektinhaber testet; die CI prüft nach
-  dem Push), siehe [Git-Arbeitsweise](docs/GIT-ARBEITSWEISE.md). Alle drei Repositories
-  sind öffentlich.
+  ohne Ausnahme (die frühere Ausnahme „sinnvollerer Branch“ ist widerrufen). In KI-Arbeitssitzungen
+  sind `cargo check`, `clippy`, `fmt` und kurze Testläufe (Sekunden) erlaubt; Nightly-Werkzeuge
+  und Minuten-Läufe nicht. Lange Tests werden geschrieben, auf `master` gepusht und vom
+  Projektinhaber ausgeführt. Kein Python (reine Rust-Projekte). Siehe
+  [Git-Arbeitsweise](docs/GIT-ARBEITSWEISE.md). Alle drei Repositories sind öffentlich.
 - D-009: Erste Mechanikmodelle verwenden dokumentierte SI-Einheiten und
   kartesische Arrays. State hält Position/Geschwindigkeit; Impuls wird als m*v
   berechnet. Zunächst keine Einheitenbibliothek. Negative endliche Schritte

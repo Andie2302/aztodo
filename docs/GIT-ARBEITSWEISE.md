@@ -22,9 +22,15 @@ ohne Ausnahme.
 
 Ablauf: `git pull`, ändern, committen, `git push` auf `master`.
 
-- **Tests und Prüfwerkzeuge** (`cargo test`, `cargo check`, `cargo clippy`, `cargo fmt`, Fuzzer)
-  werden in KI-Arbeitssitzungen **nicht ausgeführt**. Der Projektinhaber lässt Tests bei sich
-  laufen; die CI auf GitHub prüft nach dem Push (in aztodo gibt es keine CI).
+- **Erlaubt in KI-Arbeitssitzungen:** `cargo check`, `cargo clippy`, `cargo fmt` und kurze
+  Testläufe, die in wenigen Sekunden durchlaufen (wie die mehr als 1000 Tests in azmath).
+- **Nicht erlaubt:** Nightly-Werkzeuge und alles, was Minuten dauert (zum Beispiel Fuzzer oder
+  lange Läufe). Ist ein langer Lauf nötig, wird der Test oder das Skript geschrieben und auf
+  `master` gepusht; der Projektinhaber führt ihn bei sich aus (auch über Stunden) und sendet
+  das Ergebnis bzw. den Fehlercode zurück.
+- Kein Python: alle Projekte sind reine Rust-Projekte, Dateien werden mit normalen
+  Datei-Werkzeugen geändert.
+- Die CI auf GitHub prüft nach dem Push (in aztodo gibt es keine CI).
 - Ein roter CI-Lauf auf `master` wird danach durch einen weiteren Commit auf `master` behoben.
 - azphysics bindet azmath mit festem `rev` ein (D-006); ein kurzzeitig roter `master` in azmath
   betrifft azphysics daher nicht.
