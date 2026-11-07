@@ -25,8 +25,8 @@
 - D-007: Jede azphysics-CI führt `cargo test` aus, sobald es Code gibt;
   Modelle werden mit analytischen Referenzen getestet (siehe AZP-020).
 - D-008: Der Standardbranch heißt in allen drei Repositories `master`. Es wird ausschließlich
-  direkt auf `master` gearbeitet, auch bei Code. Branches und Pull Requests gibt es nur auf
-  ausdrückliche Anweisung des Projektinhabers im Einzelfall. In KI-Arbeitssitzungen werden
+  direkt auf `master` gearbeitet, auch bei Code. Es gibt keine Branches und keine Pull Requests,
+  ohne Ausnahme (die frühere Ausnahme „sinnvollerer Branch“ ist widerrufen). In KI-Arbeitssitzungen werden
   keine Tests und keine Prüfwerkzeuge ausgeführt (der Projektinhaber testet; die CI prüft nach
   dem Push), siehe [Git-Arbeitsweise](docs/GIT-ARBEITSWEISE.md). Alle drei Repositories
   sind öffentlich.

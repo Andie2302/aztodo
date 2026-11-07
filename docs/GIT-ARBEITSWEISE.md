@@ -17,8 +17,8 @@ Stand: 2026-11-07 (Grundregel „direkt auf master“ ergänzt).
 ## Ablauf einer Änderung
 
 **Es wird ausschließlich direkt auf `master` gearbeitet** (azmath, azphysics, aztodo),
-auch bei Code-Änderungen. Es werden keine Branches und keine Pull Requests angelegt, außer
-der Projektinhaber verlangt es ausdrücklich für einen Einzelfall.
+auch bei Code-Änderungen. Es werden **keine** Branches und **keine** Pull Requests angelegt,
+ohne Ausnahme.
 
 Ablauf: `git pull`, ändern, committen, `git push` auf `master`.
 
