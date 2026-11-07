@@ -29,7 +29,6 @@
   Änderungen oder bei mehrstufiger Arbeit genutzt, damit die CI vor dem Merge prüft. Gemergte
   Branches werden gelöscht (siehe [Git-Arbeitsweise](docs/GIT-ARBEITSWEISE.md)).
   Alle drei Repositories sind öffentlich.
-
 - D-009: Erste Mechanikmodelle verwenden dokumentierte SI-Einheiten und
   kartesische Arrays. State hält Position/Geschwindigkeit; Impuls wird als m*v
   berechnet. Zunächst keine Einheitenbibliothek. Negative endliche Schritte
@@ -40,8 +39,10 @@
 ## Noch offen
 
 - GEO-001: Paketgrenze für BVH/Spatial Hash und allgemeine räumliche Suche.
-- AZP-010: Einheiten als dokumentierte Konvention, eigene Typen oder externe
-  Bibliothek; Zustandslayout und SIMD-/Parallelisierungsbedarf erst danach.
+- AZP-010 (Rest): Für die ersten Modelle ist per D-009 entschieden (SI-Konvention,
+  kartesische Arrays, keine Einheitenbibliothek). Offen bleibt, ob später eigene
+  Einheitentypen oder eine externe Bibliothek folgen; Zustandslayout und
+  SIMD-/Parallelisierungsbedarf erst bei konkretem Bedarf.
 - AZP-060: Bestehendes IAPWS als separates Referenz-/Anwendungscrate erhalten
   oder künftig als optionales Materialmodul anbinden.
 - AZM-011: Erste Veröffentlichung, SemVer-Strategie und Prüfmatrix für eine
