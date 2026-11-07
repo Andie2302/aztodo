@@ -1,6 +1,6 @@
 # az-Projektplan
 
-> **Zuletzt gegen azmath geprüft:** Commit `3c6068a5` (2026-11-07). Bei neueren Commits Status zuerst abgleichen.
+> **Zuletzt gegen azmath geprüft:** Commit `75c5dc04` (2026-11-07). Bei neueren Commits Status zuerst abgleichen.
 
 Die gemeinsame Planung für [azmath](https://github.com/Andie2302/azmath) und
 [azphysics](https://github.com/Andie2302/azphysics). Hier steht, was als Nächstes
@@ -13,9 +13,10 @@ kommt, wohin eine Funktion gehört und welche Voraussetzungen sie benötigt.
 | aztodo | Gemeinsame Prioritäten, Abhängigkeiten und Entscheidungen | Zentrale Planung; enthält keinen Laufzeitcode |
 
 **Abgeschlossen:** Verteilungsreferenzen, technische Release-Vorbereitung,
-MINRES/PMINRES, Verlet, direkte Git-Anbindung sowie SI-Konventionen und erste
+MINRES/PMINRES, Verlet, Gauss–Legendre-RK4, direkte Git-Anbindung sowie SI-Konventionen und erste
 Physikmodelle (freier Flug, konstante Beschleunigung, harmonischer Oszillator).
-**Als Nächstes:** AZM-031, implizites Gauss–Legendre-Runge–Kutta in azmath.
+**Als Nächstes:** GEO-001, Zuständigkeit räumlicher Suchstrukturen klären,
+danach AZP-030 (Spatial Hash/BVH) als Grundlage für Kontakte und XPBD.
 
 Eine crates.io-Veröffentlichung (AZM-011) ist gesondert zu entscheiden.
 

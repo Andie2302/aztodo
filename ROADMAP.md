@@ -19,15 +19,16 @@ Git mit festem `rev`, Feature-Weiterleitung und eigenem Integrationstest.
 Chandrupatla (AZM-021) ist eine nachrangige Ergänzung: Brent ist bereits da.
 Die Entscheidung hängt von messbarem Nutzen an problematischen Nullstellen ab.
 
-**Als Nächstes aktiv:** AZM-031. AZP-010 und AZP-020 sind mit geprüften
+**Als Nächstes vorgeschlagen:** GEO-001, danach AZP-030 (räumliche Suche für Kontakte/XPBD).
+AZM-031 ist mit allokationsfreiem Gauss–Legendre-RK4 und Oszillatorvergleich erledigt. AZP-010 und AZP-020 sind mit geprüften
 Konventionen, ersten Modellen und CI-Nachweisen abgeschlossen. Eine tatsächliche
 Veröffentlichung bleibt AZM-011; die Git-Abhängigkeit ist keine crates.io-Veröffentlichung.
 
 ## Mittelfristig: Werkzeuge für erste physikalische Modelle
 
 1. AZM-030 Verlet für separable Hamilton-Systeme (**erledigt**, `b3418ef`) und
-   AZM-031 implizites Gauss–Legendre-Runge–Kutta. Gauss–Legendre-**Quadratur** ist bereits vorhanden;
-   der Integrator ist eine eigene Aufgabe.
+   AZM-031 implizites Gauss–Legendre-Runge–Kutta (**erledigt**, `75c5dc04`). Gauss–Legendre-**Quadratur** ist bereits vorhanden;
+   der neue Integrator ist davon unabhängig.
 2. AZP-010 Einheiten-/Zustandskonventionen und AZP-020 erste Referenzmodelle
    sind erledigt: freier Flug, konstante Beschleunigung und harmonischer
    Oszillator. Die Integration verwendet azmath-Verlet.

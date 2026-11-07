@@ -22,13 +22,14 @@ flowchart TD
 ```
 
 azmath hängt nicht von azphysics ab. azphysics bindet azmath direkt per Git und
-festem `rev` ein: `3c6068a5f218aaba940a85a73606c9f61c8ebdc9` (AZP-002).
+festem `rev` ein: `75c5dc04c51ddf02568f15f4ab3c46f7ba4c2c7c` (AZP-002).
 `default-features = false` verhindert ein ungewolltes std-Backend; std, libm,
 micromath und alloc werden durch die entsprechenden azphysics-Features
 weitergereicht. Cargo.lock wird mit versioniert. Die ersten Punktmassenmodelle
 (AZP-010/020) verwenden azmath-Verlet und ergänzen physikalische Parameter,
 SI-Zustände sowie Energie-/Impulsdiagnostik. Analytische Referenzen und
-Schrittweiten-/Zeitumkehrtests laufen in CI.
+Schrittweiten-/Zeitumkehrtests laufen in CI. Ein zusätzlicher Oszillatorvergleich
+prüft Verlet gegen Gauss–Legendre-RK4; das Modell-API delegiert weiterhin an Verlet.
 
 ## Zuordnung der gewünschten Verfahren
 
@@ -42,7 +43,7 @@ Schrittweiten-/Zeitumkehrtests laufen in CI.
 | XPBD | Generische Algebra, Differentiation, ggf. allgemeine Projektionslöser | Nachgiebige Zwangsbedingungen, inverse Massen, Kontaktreaktionen |
 | BVH / Spatial Hash | Allgemeine Geometrie; endgültige Paketgrenze noch GEO-001 | Kontaktkandidaten und Nachbarschaftssuche |
 | Verlet | Separable Hamilton-Systeme, Schrittfunktionen | Kräfte, Massen und Zustände |
-| Gauss–Legendre | Quadratur vorhanden; implizites RK geplant | Strukturtreue zeitliche Integration geeigneter Modelle |
+| Gauss–Legendre | Quadratur und implizites RK4 vorhanden (AZM-031) | Strukturtreue zeitliche Integration geeigneter Modelle |
 
 ## Wichtige fachliche Voraussetzungen
 
