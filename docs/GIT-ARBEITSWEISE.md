@@ -16,29 +16,18 @@ Stand: 2026-11-07 (Grundregel „direkt auf master“ ergänzt).
 
 ## Ablauf einer Änderung
 
-**Grundregel: direkt auf `master` arbeiten**, außer ein eigener Branch ist sinnvoller.
+**Es wird ausschließlich direkt auf `master` gearbeitet** (azmath, azphysics, aztodo),
+auch bei Code-Änderungen. Es werden keine Branches und keine Pull Requests angelegt, außer
+der Projektinhaber verlangt es ausdrücklich für einen Einzelfall.
 
-| Art der Änderung | Vorgehen |
-|---|---|
-| Dokumentation, Links, Notizen, Planungsdateien (besonders in aztodo), kleine risikoarme Korrekturen | Direkt auf `master` committen und pushen |
-| Änderungen an `src/`, neue Verfahren, CI-Dateien, größere oder riskante Umbauten | Eigener Branch und Pull Request, damit die CI vor dem Merge prüft und `master` grün bleibt |
-| Arbeit, die mehrere Schritte braucht oder bewusst erst später fertig wird | Eigener Branch |
+Ablauf: `git pull`, ändern, committen, `git push` auf `master`.
 
-Grund: Eine KI-Sitzung führt Tests nicht lokal aus (Wunsch des Projektinhabers; Tests laufen bei ihm).
-Die CI auf GitHub ist dann die erste Prüfung. Deshalb gehört Code vor dem Merge in einen Pull Request.
-azphysics bindet azmath außerdem mit festem `rev` ein (D-006), ein roter `master` in azmath stört also
-nur, wenn das `rev` darauf zeigt.
-
-Ablauf mit Branch:
-
-1. Neuen Branch von `master` anlegen (zum Beispiel `claude/<thema>` oder `feature/<thema>`).
-2. Committen und pushen.
-3. Pull Request nach `master` anlegen; die CI läuft automatisch.
-4. Wenn die CI grün ist: mergen (Merge-Commit).
-5. **Branch danach löschen.** Der Merge-Commit bleibt im Hauptbranch erhalten, und GitHub bietet kurz „Restore“ an.
-
-Ablauf direkt auf `master`: `git pull`, ändern, committen, `git push`. Danach in GitHub unter *Actions*
-prüfen, dass die CI grün ist (aztodo hat keine CI).
+- **Tests und Prüfwerkzeuge** (`cargo test`, `cargo check`, `cargo clippy`, `cargo fmt`, Fuzzer)
+  werden in KI-Arbeitssitzungen **nicht ausgeführt**. Der Projektinhaber lässt Tests bei sich
+  laufen; die CI auf GitHub prüft nach dem Push (in aztodo gibt es keine CI).
+- Ein roter CI-Lauf auf `master` wird danach durch einen weiteren Commit auf `master` behoben.
+- azphysics bindet azmath mit festem `rev` ein (D-006); ein kurzzeitig roter `master` in azmath
+  betrifft azphysics daher nicht.
 
 ## Was „ahead“ und „behind“ bedeutet
 
@@ -48,9 +37,8 @@ prüfen, dass die CI grün ist (aztodo hat keine CI).
 | N ahead, 0 behind | Eigene, noch nicht gemergte Arbeit | Nein, erst mergen oder bewusst verwerfen |
 | N ahead, M behind | Eigene Arbeit, und `master` ist weitergelaufen | Nein |
 
-**Vorsicht:** Ein Branch, der Grundlage eines offenen Pull Requests ist, darf nicht gelöscht
-werden. Der PR wird sonst automatisch geschlossen, ohne gemergt zu sein (so geschehen bei
-azphysics #2).
+Reste alter Arbeitsbranches (aus der Zeit vor dieser Regel) können gelöscht werden, wenn sie
+0 Commits „ahead“ sind.
 
 ## Branch-Schutz (empfohlen, nicht erzwungen)
 

@@ -24,11 +24,12 @@
   separat beauftragten Veröffentlichung (AZM-011) wird auf eine Versionsabhängigkeit umgestellt.
 - D-007: Jede azphysics-CI führt `cargo test` aus, sobald es Code gibt;
   Modelle werden mit analytischen Referenzen getestet (siehe AZP-020).
-- D-008: Der Standardbranch heißt in allen drei Repositories `master`. Es wird direkt auf
-  `master` gearbeitet; ein eigener Branch mit Pull Request wird für Code-, CI- und riskante
-  Änderungen oder bei mehrstufiger Arbeit genutzt, damit die CI vor dem Merge prüft. Gemergte
-  Branches werden gelöscht (siehe [Git-Arbeitsweise](docs/GIT-ARBEITSWEISE.md)).
-  Alle drei Repositories sind öffentlich.
+- D-008: Der Standardbranch heißt in allen drei Repositories `master`. Es wird ausschließlich
+  direkt auf `master` gearbeitet, auch bei Code. Branches und Pull Requests gibt es nur auf
+  ausdrückliche Anweisung des Projektinhabers im Einzelfall. In KI-Arbeitssitzungen werden
+  keine Tests und keine Prüfwerkzeuge ausgeführt (der Projektinhaber testet; die CI prüft nach
+  dem Push), siehe [Git-Arbeitsweise](docs/GIT-ARBEITSWEISE.md). Alle drei Repositories
+  sind öffentlich.
 - D-009: Erste Mechanikmodelle verwenden dokumentierte SI-Einheiten und
   kartesische Arrays. State hält Position/Geschwindigkeit; Impuls wird als m*v
   berechnet. Zunächst keine Einheitenbibliothek. Negative endliche Schritte
